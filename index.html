@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reps: unfreeze practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d211d; --surface:#143530; --surface-2:#1b433c; --line:#2c5a51;
+    --text:#f1faf5; --muted:#93b3a9;
+    --amber:#ff7a59; --amber-dark:#5c2a1c;
+    --blue:#6fc3e0; --blue-dark:#1c3d4a;
+    --rose:#ff6f91; --rose-dark:#4a1f30;
+    --teal:#5ce0a8; --teal-dark:#164a37;
+    --violet:#b39ddb; --violet-dark:#332c55;
+    --gold:#ffc267; --gold-dark:#4d3a1a;
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box;}
+  :root{ padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% -8%, rgba(255,122,89,0.10), transparent 42%),
+      radial-gradient(circle at 92% 6%, rgba(92,224,168,0.10), transparent 38%),
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--text); font-family:var(--sans); -webkit-font-smoothing:antialiased;
+  }
+  button{font-family:var(--sans);}
+  .wrap{max-width:900px;margin:0 auto;padding:48px 24px 130px;}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+  h1{
+    font-family:var(--serif);font-weight:700;font-size:56px;line-height:1;margin:0 0 12px;letter-spacing:-.01em;
+    background:linear-gradient(100deg,var(--amber) 0%,var(--gold) 45%,var(--teal) 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;width:fit-content;
+  }
+  .tagline{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--muted);margin:0 0 32px;max-width:560px;}
+  .panel-title{
+    font-family:var(--serif);font-weight:700;font-size:36px;line-height:1.05;margin:0 0 8px;
+    background:linear-gradient(100deg,var(--amber) 0%,var(--gold) 50%,var(--teal) 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;width:fit-content;
+  }
+  .panel-sub{font-size:15px;color:var(--muted);line-height:1.5;margin:0 0 28px;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;animation:panelIn .28s ease;}
+  @keyframes panelIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 16px;transition:transform .15s ease,border-color .15s ease;}
+  .stat:hover{transform:translateY(-2px);border-color:var(--amber);}
+  .stat-label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;}
+  .stat-value{font-family:var(--mono);font-size:32px;font-weight:700;margin:0;}
+  .stat-value.flame{color:var(--amber);text-shadow:0 0 18px rgba(255,122,89,.45);display:flex;align-items:baseline;gap:6px;}
+  .stat-caption{font-size:10.5px;color:var(--muted);margin:6px 0 0;line-height:1.3;}
+  .flame-icon{display:inline-block;font-size:22px;animation:flicker 1.6s ease-in-out infinite;}
+  @keyframes flicker{0%,100%{transform:scale(1) rotate(0);}25%{transform:scale(1.08) rotate(-3deg);}50%{transform:scale(.96) rotate(2deg);}75%{transform:scale(1.05) rotate(-1deg);}}
+
+  .week-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 22px;flex-wrap:wrap;row-gap:8px;}
+  .week-dots{display:flex;gap:7px;}
+  .week-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10.5px;color:var(--muted);}
+  .week-dot.on{background:var(--teal);border-color:var(--teal);color:var(--bg);font-weight:700;}
+  .week-dot.today{border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,122,89,.18);}
+  .week-count{font-family:var(--mono);font-size:11.5px;color:var(--muted);}
+
+  .section-label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin:8px 0 16px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  /* hero buttons */
+  .quick-hero{
+    display:flex;align-items:center;gap:16px;width:100%;
+    background:linear-gradient(100deg,var(--amber),var(--teal));color:var(--bg);border:none;border-radius:16px;
+    padding:18px 20px;margin-bottom:14px;cursor:pointer;text-align:left;box-shadow:0 12px 28px -12px var(--amber);transition:transform .15s ease;
+  }
+  .quick-hero:hover{transform:translateY(-2px);}
+  .quick-hero:active{transform:scale(.98);}
+  .quick-hero-ico{font-size:32px;}
+  .quick-hero-main{flex:1;min-width:0;}
+  .quick-hero-main strong{display:block;font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.15;}
+  .quick-hero-main small{display:block;font-size:12.5px;font-weight:500;opacity:.8;margin-top:3px;}
+  .quick-hero-meta{font-family:var(--mono);font-weight:700;font-size:13px;background:rgba(13,33,29,.18);border-radius:20px;padding:7px 12px;white-space:nowrap;}
+
+  .coach-hero{
+    display:flex;align-items:center;gap:14px;width:100%;background:var(--surface);border:1.5px solid var(--gold);color:var(--text);
+    border-radius:16px;padding:15px 18px;margin:0 0 18px;cursor:pointer;text-align:left;transition:transform .15s ease;
+  }
+  .coach-hero:hover{transform:translateY(-1px);}
+  .coach-hero:active{transform:scale(.98);}
+  .coach-hero-ico{font-size:26px;}
+  .coach-hero-main{flex:1;min-width:0;}
+  .coach-hero-main strong{display:block;font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.15;}
+  .coach-hero-main small{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .coach-hero-meta{font-family:var(--mono);font-size:12px;color:var(--gold);white-space:nowrap;}
+
+  /* drill grid cards */
+  .missions{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;align-items:start;}
+  .card{
+    position:relative;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--tag-color,var(--amber));
+    border-radius:2px 10px 10px 2px;padding:22px 22px 20px;overflow:hidden;
+  }
+  .card.wide{grid-column:1 / -1;}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:var(--tag-bg,var(--amber-dark));color:var(--tag-color,var(--amber));margin-bottom:14px;}
+  .task-text{font-family:var(--serif);font-weight:500;font-size:21px;line-height:1.35;margin:0 0 10px;}
+  .task-sub{font-size:13.5px;color:var(--muted);line-height:1.55;margin:0 0 16px;}
+  .complete-btn{
+    font-weight:700;font-size:14px;background:var(--tag-color,var(--amber));color:var(--bg);border:none;border-radius:8px;
+    padding:12px 16px;cursor:pointer;width:100%;transition:transform .12s ease,box-shadow .12s ease;box-shadow:0 4px 14px -4px var(--tag-color,var(--amber));
+  }
+  .complete-btn:hover{transform:translateY(-1px) scale(1.01);}
+  .complete-btn:active{transform:scale(.97);}
+  .complete-btn:disabled{background:var(--surface-2);color:var(--muted);box-shadow:none;cursor:default;transform:none;}
+  .ghost-btn{
+    font-weight:600;font-size:12.5px;background:transparent;color:var(--tag-color,var(--amber));border:1px solid var(--tag-color,var(--amber));
+    border-radius:20px;padding:6px 12px;cursor:pointer;transition:transform .12s ease,background .12s ease;
+  }
+  .ghost-btn:hover{background:var(--tag-bg,var(--amber-dark));transform:translateY(-1px);}
+  .ghost-btn.danger{--tag-color:var(--rose);--tag-bg:var(--rose-dark);}
+  .btn-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .mini-count{font-family:var(--mono);font-size:11px;color:var(--muted);margin:12px 0 0;}
+
+  .field-label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tag-color,var(--amber));margin:0 0 6px;}
+  .input, textarea.input{
+    width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;color:var(--text);
+    font-family:var(--sans);font-size:14px;padding:10px 12px;margin-bottom:12px;
+  }
+  textarea.input{resize:vertical;min-height:52px;line-height:1.45;}
+  .input:focus{outline:none;border-color:var(--tag-color,var(--amber));}
+  .input::placeholder{color:#86a99e;}
+  .beat-num{display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--tag-bg);color:var(--tag-color);align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-right:6px;font-family:var(--mono);}
+  .beats-prompt{font-family:var(--serif);font-size:19px;line-height:1.35;margin:0 0 14px;}
+
+  .potd-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;}
+  .potd-eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin:0 0 8px;}
+  .potd-text{font-family:var(--serif);font-size:20px;line-height:1.35;margin:0 0 6px;}
+  .potd-sub{font-size:13px;color:var(--muted);margin:0 0 12px;line-height:1.5;}
+
+  /* friends */
+  .friend-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+  .friend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;--tag-color:var(--teal);--tag-bg:var(--teal-dark);}
+  .friend-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px;}
+  .friend-name{font-family:var(--serif);font-weight:600;font-size:19px;margin:0;}
+  .friend-last{font-family:var(--mono);font-size:10.5px;color:var(--muted);white-space:nowrap;}
+  .friend-last.stale{color:var(--gold);}
+  .friend ul{margin:0 0 10px;padding-left:18px;font-size:14px;line-height:1.55;}
+  .opener{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13.5px;line-height:1.45;margin:0 0 12px;}
+  .opener b{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:3px;font-weight:500;}
+  .mine-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;}
+  .mine-item span{flex:1;}
+  .x-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px;padding:4px;}
+  .x-btn:hover{color:var(--rose);}
+
+  /* log */
+  .history{display:flex;flex-direction:column;gap:2px;margin-bottom:24px;}
+  .hist-row{display:grid;grid-template-columns:92px 1fr auto;align-items:center;gap:14px;padding:11px 4px;border-bottom:1px solid var(--line);font-size:13px;}
+  .hist-date{font-family:var(--mono);color:var(--muted);font-size:11.5px;}
+  .hist-main{min-width:0;}
+  .hist-kind{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;}
+  .hist-prompt{display:block;color:var(--text);opacity:.9;line-height:1.4;margin-top:2px;overflow-wrap:anywhere;}
+  .hist-note{display:block;color:var(--muted);font-style:italic;margin-top:2px;}
+  .hist-dots{display:flex;gap:4px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--line);}
+  .dot.done{background:var(--teal);}
+  .empty-hist{color:var(--muted);font-size:13.5px;padding:8px 4px;line-height:1.5;}
+  .avg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px;}
+  .avg-cell{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+  .avg-cell p{margin:0;}
+  .avg-cell .k{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;}
+  .avg-cell .v{font-family:var(--mono);font-size:20px;font-weight:700;margin-top:4px;}
+  .avg-cell .s{font-size:11px;color:var(--muted);margin-top:2px;}
+  .reset-row{text-align:center;margin-top:20px;}
+  .reset-btn{background:none;border:none;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .reset-btn:hover{color:var(--rose);}
+  .add-rep-btn{display:block;width:100%;background:transparent;border:1.5px dashed var(--line);color:var(--muted);font-weight:600;font-size:13.5px;border-radius:10px;padding:13px;cursor:pointer;margin-bottom:28px;transition:border-color .15s ease,color .15s ease;}
+  .add-rep-btn:hover{border-color:var(--amber);color:var(--amber);}
+
+  /* learn */
+  .learn-card{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--tag-color);border-radius:2px 10px 10px 2px;margin-bottom:10px;overflow:hidden;}
+  .learn-card summary{list-style:none;display:flex;align-items:center;gap:14px;padding:15px 18px;cursor:pointer;}
+  .learn-card summary::-webkit-details-marker{display:none;}
+  .learn-ico{font-size:22px;}
+  .learn-main{flex:1;min-width:0;}
+  .learn-title{display:block;font-family:var(--serif);font-weight:600;font-size:17px;}
+  .learn-desc{display:block;font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .learn-arrow{color:var(--muted);font-size:20px;transition:transform .2s ease;}
+  .learn-card[open] .learn-arrow{transform:rotate(90deg);}
+  .learn-body{padding:0 18px 18px 54px;font-size:14.5px;line-height:1.6;}
+  .learn-body p{margin:0 0 10px;}
+  .step-quote{border-left:3px solid var(--tag-color);padding:4px 0 4px 14px;margin:0 0 12px;font-family:var(--serif);font-size:16.5px;font-style:italic;}
+  .learn-body ul{margin:0 0 12px;padding-left:18px;color:var(--muted);}
+
+  /* tabbar */
+  .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(13,33,29,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));}
+  .tabbar-inner{max-width:600px;margin:0 auto;display:flex;gap:6px;}
+  .tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:var(--muted);font-size:11px;font-weight:600;padding:7px 0;border-radius:12px;cursor:pointer;}
+  .tab-ico{font-size:20px;transition:transform .2s cubic-bezier(.3,1.6,.5,1);}
+  .tab-btn.active{color:var(--amber);background:var(--surface);}
+  .tab-btn.active .tab-ico{transform:translateY(-2px) scale(1.15);}
+
+  /* reel overlay */
+  .modal-overlay{display:none;position:fixed;inset:0;z-index:100;overflow-y:auto;}
+  .modal-overlay.show{display:flex;}
+  #reel{
+    --kc:var(--amber);--kc-glow:rgba(255,122,89,.30);--kc-glow2:rgba(92,224,168,.12);
+    align-items:stretch;overscroll-behavior:contain;background-color:var(--bg);
+    background-image:radial-gradient(120% 62% at 50% -8%,var(--kc-glow),transparent 64%),radial-gradient(90% 50% at 50% 112%,var(--kc-glow2),transparent 62%);
+  }
+  #reel[data-kind="freeze"]{--kc:var(--amber);--kc-glow:rgba(255,122,89,.32);--kc-glow2:rgba(255,194,103,.12);}
+  #reel[data-kind="explain"]{--kc:var(--blue);--kc-glow:rgba(111,195,224,.30);--kc-glow2:rgba(92,224,168,.12);}
+  #reel[data-kind="taboo"]{--kc:var(--violet);--kc-glow:rgba(179,157,219,.34);--kc-glow2:rgba(255,111,145,.11);}
+  #reel[data-kind="real"]{--kc:var(--gold);--kc-glow:rgba(255,194,103,.28);--kc-glow2:rgba(179,157,219,.12);}
+  #reel[data-kind="coach"]{--kc:var(--gold);--kc-glow:rgba(255,194,103,.28);--kc-glow2:rgba(92,224,168,.12);}
+  .reel-card{max-width:560px;width:100%;margin:0 auto;display:flex;flex-direction:column;min-height:100%;
+    padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(22px + env(safe-area-inset-bottom,0px));}
+  .reel-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+  .reel-segs{flex:1;display:flex;gap:5px;}
+  .reel-seg{flex:1;height:4px;border-radius:3px;background:var(--surface-2);transition:background .25s ease;}
+  .reel-seg.done{background:var(--kc);}
+  .reel-seg.cur{background:var(--text);}
+  .nav-btn{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;line-height:1;padding:4px;}
+  .nav-btn:hover{color:var(--text);}
+  #reel-body{flex:1;display:flex;flex-direction:column;min-height:0;}
+  .face{position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;padding:6px 2px 22px;animation:reelIn .4s cubic-bezier(.2,.8,.2,1);}
+  @keyframes reelIn{from{opacity:0;transform:translateY(9%);}to{opacity:1;transform:none;}}
+  .kind-chip{display:inline-block;align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;border-radius:20px;color:var(--bg);background:var(--kc);font-weight:700;}
+  .who{font-family:var(--mono);font-size:11px;color:var(--muted);margin:14px 0 0;letter-spacing:.06em;text-transform:uppercase;}
+  .quick-text{font-family:var(--serif);font-weight:600;font-size:clamp(26px,7.4vw,38px);line-height:1.18;letter-spacing:-.01em;margin:10px 0 14px;text-wrap:balance;}
+  .quick-text.small{font-size:clamp(20px,5.4vw,26px);margin:8px 0 8px;}
+  .quick-sub{font-size:15.5px;color:var(--muted);line-height:1.55;margin:0 0 12px;max-width:46ch;}
+  .quick-hint{font-size:14px;color:var(--kc);margin:0 0 10px;line-height:1.5;}
+  .banned{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px;}
+  .banned span{font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:20px;border:1px solid var(--rose);color:var(--rose);text-decoration:line-through;}
+  .helpbox{display:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:6px 0 0;font-size:14px;line-height:1.55;}
+  .helpbox.show{display:block;}
+  .helpbox b{color:var(--kc);font-weight:600;}
+  .quick-link{align-self:flex-start;margin-top:14px;background:none;border:1.5px solid var(--line);color:var(--text);border-radius:20px;padding:9px 15px;font:600 13px var(--sans);cursor:pointer;}
+  .quick-go{display:block;width:100%;background:var(--kc);color:var(--bg);border:none;border-radius:16px;padding:18px;font-weight:700;font-size:17px;cursor:pointer;transition:transform .12s ease;}
+  .quick-go:active{transform:scale(.97);}
+  .quick-go:disabled{opacity:.38;cursor:default;}
+  .quick-ghost{display:block;width:100%;margin-top:10px;background:transparent;color:var(--text);border:1.5px solid var(--line);border-radius:12px;padding:13px;font-weight:600;font-size:14.5px;cursor:pointer;}
+  .quick-skip{display:block;margin:12px auto 0;background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .count-big{font-family:var(--serif);font-weight:700;font-size:140px;line-height:1;text-align:center;color:var(--kc);margin:10px 0;animation:countPop .9s ease-out;}
+  @keyframes countPop{0%{transform:scale(1.5);opacity:0;}30%{transform:scale(1);opacity:1;}100%{opacity:.85;}}
+  .ring-wrap{position:relative;width:180px;height:180px;margin:10px auto 14px;}
+  .ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg);}
+  .ring-bg{fill:none;stroke:var(--surface-2);stroke-width:10;}
+  .ring-fg{fill:none;stroke:var(--kc);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1s linear;}
+  .ring-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:44px;}
+  .ring-num small{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+  .remind{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--kc);border-radius:4px 10px 10px 4px;padding:12px 14px;font-size:14.5px;line-height:1.5;margin:0 0 14px;}
+  .remind b{color:var(--kc);}
+  .rate-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0 14px;}
+  .rate-btn{background:var(--surface);border:1.5px solid var(--line);color:var(--text);border-radius:12px;padding:14px 4px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform .12s ease,border-color .12s ease;}
+  .rate-btn b{font-family:var(--mono);font-size:22px;}
+  .rate-btn small{font-size:10.5px;color:var(--muted);}
+  .rate-btn:hover{border-color:var(--kc);transform:translateY(-2px);}
+  .rate-btn.sel{background:var(--kc);border-color:var(--kc);color:var(--bg);}
+  .rate-btn.sel small{color:var(--bg);}
+  .done-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+  .done-emoji{font-size:46px;display:block;margin-bottom:8px;}
+  .done-wrap h3{font-family:var(--serif);font-size:28px;margin:0 0 6px;}
+  .done-wrap p{margin:0 0 8px;font-size:14.5px;color:var(--muted);line-height:1.5;}
+  .coach-text{width:100%;min-height:260px;font-family:var(--mono);font-size:12px;line-height:1.5;}
+
+  .toast{position:fixed;top:calc(24px + env(safe-area-inset-top,0px));left:50%;transform:translate(-50%,calc(-100% - 60px));z-index:400;
+    background:linear-gradient(100deg,var(--amber),var(--teal));color:var(--bg);font-family:var(--serif);font-weight:700;font-size:16px;
+    padding:12px 24px;border-radius:40px;box-shadow:0 10px 30px -8px rgba(0,0,0,.5);transition:transform .4s cubic-bezier(.2,.9,.3,1.3),visibility .4s;visibility:hidden;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis;}
+  .toast.show{transform:translate(-50%,0);visibility:visible;}
+  .confetti-piece{position:fixed;width:7px;height:7px;border-radius:2px;pointer-events:none;z-index:300;animation:confettiFly .7s ease-out forwards;}
+  @keyframes confettiFly{0%{transform:translate(0,0) rotate(0) scale(1);opacity:1;}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.4);opacity:0;}}
+  .sync-status{margin:6px 2px 0;font-family:var(--mono);font-size:10.5px;color:var(--muted);}
+
+
+  /* settings / sync */
+  .gear-btn{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:18px;z-index:5;background:var(--surface);border:1px solid var(--line);color:var(--muted);
+    border-radius:20px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;}
+  .gear-btn:hover{color:var(--text);border-color:var(--amber);}
+  .gear-btn .sdot{width:8px;height:8px;border-radius:50%;background:var(--line);}
+  .sdot.ok{background:var(--teal);} .sdot.pending{background:var(--gold);} .sdot.failed{background:var(--rose);}
+  .wrap{position:relative;}
+  .quick-text,.friend-name,.potd-text,.task-text,.beats-prompt,.opener,.mine-item span,.learn-title{overflow-wrap:anywhere;}
+  .friend-top{min-width:0;}
+  .friend,.card,.hist-main{min-width:0;}
+  .friend li,.hist-prompt,.hist-note,.mine-item span{overflow-wrap:anywhere;word-break:break-word;}
+  .friend-list,.missions{grid-template-columns:repeat(2,minmax(0,1fr));}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  #settings{background:rgba(5,15,13,.78);align-items:flex-start;justify-content:center;padding:calc(32px + env(safe-area-inset-top,0px)) 16px 32px;}
+  .modal-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;max-width:520px;width:100%;padding:24px 24px 26px;--tag-color:var(--gold);--tag-bg:var(--gold-dark);}
+  .modal-top{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+  .library-title{flex:1;font-family:var(--serif);font-weight:600;font-size:19px;margin:0;}
+  .check-row{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);margin:0 0 14px;cursor:pointer;}
+  .check-row input{width:18px;height:18px;accent-color:var(--gold);}
+  .sync-box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.5;margin:4px 0 14px;overflow-wrap:anywhere;}
+  .sync-box b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;}
+  details.adv summary{cursor:pointer;font-size:13px;color:var(--gold);margin:2px 0 12px;}
+  .small-note{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 14px;}
+  @media (max-width:680px){
+    .wrap{padding:32px 18px 120px;}
+    h1{font-size:40px;}
+    .missions,.friend-list{grid-template-columns:minmax(0,1fr);}
+    .stats{grid-template-columns:1fr 1fr;gap:10px;}
+    .stat{padding:14px 12px;}
+    .stat-value{font-size:26px;}
+    .hist-row{grid-template-columns:62px 1fr auto;gap:10px;}
+    .avg-grid{grid-template-columns:1fr 1fr;}
+    .learn-body{padding-left:18px;}
+    .week-dot{width:26px;height:26px;}
+    .week-dots{gap:5px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <button class="gear-btn" id="gear-btn" aria-label="Sync to coach settings"><span class="sdot" id="gear-dot"></span><span id="gear-txt">Sync off</span> &#9881;&#65039;</button>
+
+  <!-- TODAY -->
+  <section class="tab-panel active" id="tab-today" data-tab="today">
+    <p class="eyebrow">Daily unfreeze log</p>
+    <h1>Reps</h1>
+    <p class="tagline">Short, out loud, a little every day. Blanking is a skill you can train away.</p>
+
+    <div class="stats">
+      <div class="stat"><p class="stat-label">Today</p><p class="stat-value" id="stat-today">0</p><p class="stat-caption">reps done today</p></div>
+      <div class="stat"><p class="stat-label">Streak</p><p class="stat-value flame" id="stat-streak">0</p><p class="stat-caption">days in a row</p></div>
+      <div class="stat"><p class="stat-label">Total reps</p><p class="stat-value" id="stat-total">0</p><p class="stat-caption" id="stat-best-cap">best streak 0</p></div>
+      <div class="stat"><p class="stat-label">Smoothness</p><p class="stat-value" id="stat-avg">-</p><p class="stat-caption">average, last 7 days</p></div>
+    </div>
+    <div class="week-row" id="week-row"></div>
+
+    <button class="quick-hero" id="hero-freeze">
+      <span class="quick-hero-ico">&#9889;</span>
+      <span class="quick-hero-main"><strong>Freeze drill</strong><small>Someone says something. 3 seconds. Then you talk.</small></span>
+      <span class="quick-hero-meta">30s</span>
+    </button>
+
+    <button class="coach-hero" id="hero-coach">
+      <span class="coach-hero-ico">&#128203;</span>
+      <span class="coach-hero-main"><strong>Copy for coach</strong><small>Plain-text summary of the last 14 days, ready to paste</small></span>
+      <span class="coach-hero-meta">Copy</span>
+    </button>
+
+    <div class="potd-card" id="prep-card" style="--tag-color:var(--gold);--tag-bg:var(--gold-dark);">
+      <p class="potd-eyebrow" style="color:var(--gold)">Before your next work chat</p>
+      <p class="potd-sub">Decide one point or question you want to bring up. Just one. It is much easier to speak once you have started.</p>
+      <input class="input" id="prep-input" aria-label="One point for my next work chat" maxlength="180" placeholder="e.g. Ask Priya how the client demo went">
+      <div class="btn-row"><button class="ghost-btn" id="prep-save">Save it</button><span class="mini-count" id="prep-saved" style="margin:0"></span></div>
+    </div>
+
+    <div class="potd-card" id="pause-card"></div>
+
+    <p class="section-label">Today's picks</p>
+    <div class="missions" id="today-picks"></div>
+    <p class="sync-status" id="sync-status">Saved on this device only (browser storage) · Sync off</p>
+  </section>
+
+  <!-- DRILLS -->
+  <section class="tab-panel" id="tab-drills" data-tab="drills">
+    <h2 class="panel-title">Drills</h2>
+    <p class="panel-sub">Say everything out loud. Mumbling counts. Typing in your head does not.</p>
+    <div class="missions">
+      <div class="card" style="--tag-color:var(--amber);--tag-bg:var(--amber-dark);">
+        <span class="tag">Freeze drill</span>
+        <p class="task-text">Get past the blank moment in a casual chat.</p>
+        <p class="task-sub">A coworker line pops up. You get a 3 second countdown, then 30 seconds to answer. Open with a pause line or echo their last word.</p>
+        <button class="complete-btn" data-start="freeze">Start freeze drill</button>
+        <p class="mini-count" id="cnt-freeze"></p>
+      </div>
+      <div class="card" style="--tag-color:var(--blue);--tag-bg:var(--blue-dark);">
+        <span class="tag">Explain it</span>
+        <p class="task-text">Explain something out loud, headline first.</p>
+        <p class="task-sub">One sentence version, then one detail, then an example. If a word goes missing, describe it and keep going. 60 seconds.</p>
+        <button class="complete-btn" data-start="explain">Start explain drill</button>
+        <p class="mini-count" id="cnt-explain"></p>
+      </div>
+      <div class="card" style="--tag-color:var(--violet);--tag-bg:var(--violet-dark);">
+        <span class="tag">Taboo word</span>
+        <p class="task-text">Describe a word without saying it.</p>
+        <p class="task-sub">This trains the exact move you need when a word disappears mid-sentence: talk around it. 45 seconds, no stopping.</p>
+        <button class="complete-btn" data-start="taboo">Start taboo mode</button>
+        <p class="mini-count" id="cnt-taboo"></p>
+      </div>
+      <div class="card" style="--tag-color:var(--gold);--tag-bg:var(--gold-dark);">
+        <span class="tag">Real life</span>
+        <p class="task-text">Had a real conversation? Log it.</p>
+        <p class="task-sub">The real reps matter most. Rate how smooth it felt and note where you froze, if you did.</p>
+        <button class="complete-btn" data-start="real">Log a real chat</button>
+        <p class="mini-count" id="cnt-real"></p>
+      </div>
+      <div class="card wide" id="beats-card" style="--tag-color:var(--teal);--tag-bg:var(--teal-dark);">
+        <span class="tag">Three beats builder</span>
+        <p class="beats-prompt" id="beats-prompt"></p>
+        <label class="field-label" for="beat-a"><span class="beat-num">1</span>What happened</label>
+        <textarea class="input" id="beat-a" maxlength="200" placeholder="One short sentence"></textarea>
+        <label class="field-label" for="beat-b"><span class="beat-num">2</span>Why it mattered to you</label>
+        <textarea class="input" id="beat-b" maxlength="200" placeholder="How it felt, or why you cared"></textarea>
+        <label class="field-label" for="beat-c"><span class="beat-num">3</span>Question back</label>
+        <textarea class="input" id="beat-c" maxlength="200" placeholder="Hand the conversation back to them"></textarea>
+        <div class="btn-row" style="margin-bottom:12px">
+          <button class="ghost-btn" id="beats-new">New prompt</button>
+          <button class="ghost-btn" id="beats-example">Show an example</button>
+        </div>
+        <div class="helpbox" id="beats-ex" style="--kc:var(--teal)"></div>
+        <button class="complete-btn" id="beats-save" style="margin-top:12px">Now say it out loud, then save</button>
+        <p class="mini-count" id="cnt-beats"></p>
+        <div id="beats-saved"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRIENDS -->
+  <section class="tab-panel" id="tab-friends" data-tab="friends">
+    <h2 class="panel-title">Friends</h2>
+    <p class="panel-sub">When you do not talk often, there is no recent thread to pick up. Keep one or two things here and read them for 10 seconds before you call or text.</p>
+
+    <div class="card" style="--tag-color:var(--teal);--tag-bg:var(--teal-dark);margin-bottom:22px">
+      <span class="tag" id="friend-form-tag">Add a friend</span>
+      <input type="hidden" id="f-id">
+      <label class="field-label" for="f-name">Name</label>
+      <input class="input" id="f-name" maxlength="40" placeholder="e.g. Arjun">
+      <label class="field-label" for="f-n1">Something they mentioned last time</label>
+      <input class="input" id="f-n1" maxlength="140" placeholder="e.g. interviewing at a new company">
+      <label class="field-label" for="f-n2">One more thing (optional)</label>
+      <input class="input" id="f-n2" maxlength="140" placeholder="e.g. started watching a new show">
+      <div class="btn-row"><button class="complete-btn" id="f-save" style="width:auto;padding:11px 18px">Save friend</button><button class="ghost-btn" id="f-cancel" style="display:none">Cancel</button></div>
+    </div>
+
+    <p class="section-label">Your people</p>
+    <div class="friend-list" id="friend-list"></div>
+
+    <p class="section-label">Things from my week to share</p>
+    <div class="card" style="--tag-color:var(--gold);--tag-bg:var(--gold-dark);margin-bottom:28px">
+      <p class="task-sub" style="margin-bottom:12px">Something you watched, ate, fixed, or ran into. Keep two or three ready so you are not making it up on the spot.</p>
+      <div class="btn-row" style="flex-wrap:nowrap;margin-bottom:6px"><input class="input" id="mine-input" aria-label="Something from my week" maxlength="140" placeholder="e.g. Tried a new biryani place near work" style="margin:0"><button class="ghost-btn" id="mine-add">Add</button></div>
+      <div id="mine-list"></div>
+    </div>
+  </section>
+
+  <!-- LOG -->
+  <section class="tab-panel" id="tab-log" data-tab="log">
+    <h2 class="panel-title">Log</h2>
+    <p class="panel-sub">Every rep, how smooth it felt, and where you froze. Share it with your coach so the practice can be tuned.</p>
+    <button class="coach-hero" id="log-coach">
+      <span class="coach-hero-ico">&#128203;</span>
+      <span class="coach-hero-main"><strong>Copy for coach</strong><small>Streak, totals, last 14 days, averages per drill, skips</small></span>
+      <span class="coach-hero-meta">Copy</span>
+    </button>
+    <p class="section-label">Average smoothness by drill</p>
+    <div class="avg-grid" id="avg-grid"></div>
+    <button class="add-rep-btn" data-start="real">+ Log a real conversation</button>
+    <p class="section-label">Reps</p>
+    <div class="history" id="history"></div>
+    <div class="reset-row"><button class="reset-btn" id="reset-btn">Clear reps log</button></div>
+  </section>
+
+  <!-- LEARN -->
+  <section class="tab-panel" id="tab-learn" data-tab="learn">
+    <h2 class="panel-title">Learn</h2>
+    <p class="panel-sub">The moves behind the drills, in plain words. Tap one to open it.</p>
+    <div id="learn-list"></div>
+  </section>
+</div>
+
+<nav class="tabbar" aria-label="Sections">
+  <div class="tabbar-inner">
+    <button class="tab-btn active" data-tab="today"><span class="tab-ico" aria-hidden="true">&#127968;</span>Today</button>
+    <button class="tab-btn" data-tab="drills"><span class="tab-ico" aria-hidden="true">&#128172;</span>Drills</button>
+    <button class="tab-btn" data-tab="friends"><span class="tab-ico" aria-hidden="true">&#129309;</span>Friends</button>
+    <button class="tab-btn" data-tab="log"><span class="tab-ico" aria-hidden="true">&#128170;</span>Log</button>
+    <button class="tab-btn" data-tab="learn"><span class="tab-ico" aria-hidden="true">&#128218;</span>Learn</button>
+  </div>
+</nav>
+
+<div class="modal-overlay" id="reel" data-kind="freeze" role="dialog" aria-modal="true">
+  <div class="reel-card">
+    <div class="reel-top">
+      <div class="reel-segs" id="reel-segs"></div>
+      <button class="nav-btn" id="reel-sound" aria-label="Sound on" aria-pressed="true">&#128266;</button>
+      <button class="nav-btn" id="reel-close" aria-label="Close drill">&#10005;</button>
+    </div>
+    <div id="reel-body" aria-live="polite"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="settings" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <div class="modal-top"><p class="library-title">&#9881;&#65039; Sync to coach</p><button class="nav-btn" id="settings-close" aria-label="Close">&#10005;</button></div>
+    <p class="small-note">Optional. After each logged rep, this sends a small JSON message to your coach's webhook. Leave the URL empty to keep sync off. Your reps always stay saved here, and Copy for coach still works as a backup.</p>
+    <label class="field-label" for="s-url">Webhook URL</label>
+    <input class="input" id="s-url" type="url" placeholder="https://..." autocomplete="off" spellcheck="false">
+    <label class="field-label" for="s-key">Sender key</label>
+    <input class="input" id="s-key" type="password" placeholder="Key from your coach" autocomplete="off" spellcheck="false">
+    <details class="adv"><summary>Advanced</summary>
+      <label class="field-label" for="s-header">Key header name</label>
+      <input class="input" id="s-header" placeholder="Authorization" autocomplete="off" spellcheck="false">
+      <label class="check-row"><input type="checkbox" id="s-raw"><span>Send the key as the raw header value (no "Bearer " in front)</span></label>
+    </details>
+    <div class="sync-box" id="s-status"></div>
+    <div class="btn-row">
+      <button class="complete-btn" id="s-save" style="width:auto;padding:11px 18px">Save</button>
+      <button class="ghost-btn" id="s-test">Send test</button>
+      <button class="ghost-btn" id="s-retry">Retry now</button>
+      <button class="ghost-btn danger" id="s-clear">Clear outbox</button>
+    </div>
+    <p class="small-note" style="margin-top:14px">Tip: if you open this file straight from your phone or computer, the webhook has to allow cross-origin requests (CORS) for the key header to get through.</p>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* =====================================================================
+   CONFIG: prompt banks and tuning. Edit freely.
+   - freeze: [line, type, echoExample]  type: 'chat' (casual), 'share' (they tell you something; echo it), 'direct' (work question)
+   - explain: topic strings
+   - taboo: [word, [banned words]]
+   - beats: prompts for the three beats builder
+   - pauseLines / echoTips: shown as reminders
+   - timers: seconds per drill
+   ===================================================================== */
+const CONFIG = {
+  timers: { countdown: 3, freeze: 30, explain: 60, taboo: 45 },
+  repsPerSession: 5,
+  dailyGoal: 3,
+
+  pauseLines: [
+    "Hmm, good question.",
+    "Let me think about that for a sec.",
+    "Oh, that's a fun one.",
+    "Honestly? Let me think.",
+    "Ooh, okay. So...",
+    "That's a good one, give me a second.",
+    "Huh, I hadn't thought about that.",
+    "Okay, so, short answer..."
+  ],
+
+  freeze: [
+    ["How was your weekend?", "chat", ""],
+    ["Any plans for the weekend?", "chat", ""],
+    ["Busy day today?", "chat", ""],
+    ["How's your week going so far?", "chat", ""],
+    ["What are you working on right now?", "chat", ""],
+    ["Did you have lunch yet?", "chat", ""],
+    ["Have you tried the new place downstairs?", "chat", ""],
+    ["Watching anything good lately?", "chat", ""],
+    ["How long have you been on this team?", "chat", ""],
+    ["Coffee or tea person?", "chat", ""],
+    ["Any trips coming up?", "chat", ""],
+    ["What did you do last night?", "chat", ""],
+    ["How was your commute this morning?", "chat", ""],
+    ["Are you taking any time off soon?", "chat", ""],
+    ["What got you into this kind of work?", "chat", ""],
+    ["Where are you from originally?", "chat", ""],
+    ["What do you usually do after work?", "chat", ""],
+    ["Read anything interesting this week?", "chat", ""],
+    ["Do you work from home much?", "chat", ""],
+    ["What's the best thing that happened this week?", "chat", ""],
+    ["I just got back from a trip to the mountains.", "share", "The mountains? Where did you go?"],
+    ["I finally finished that course I was taking.", "share", "Finished it? What was the course about?"],
+    ["My kid had their first football game this weekend.", "share", "First game? How did it go?"],
+    ["I've been trying to cook more at home.", "share", "Cooking more? What have you been making?"],
+    ["I'm so tired, I was up late fixing a bug.", "share", "Up late? What was the bug?"],
+    ["We're moving apartments next month.", "share", "Moving? Where to?"],
+    ["I started going to the gym again.", "share", "The gym again? How's it going so far?"],
+    ["I binge-watched a whole series on Saturday.", "share", "A whole series? Which one?"],
+    ["My laptop died in the middle of the demo.", "share", "In the middle of the demo? What did you do?"],
+    ["I've been learning to play guitar.", "share", "Guitar? What made you start?"],
+    ["The client meeting went way better than expected.", "share", "Better than expected? What happened?"],
+    ["I got a new puppy.", "share", "A puppy? What's its name?"],
+    ["I'm thinking about running a half marathon.", "share", "A half marathon? Have you run one before?"],
+    ["We had a team dinner last night, it was fun.", "share", "Team dinner? Where did you go?"],
+    ["I've been reading this book about habits.", "share", "About habits? What's the big idea in it?"],
+    ["Traffic was a nightmare today.", "share", "A nightmare? How long did it take?"],
+    ["My parents are visiting this week.", "share", "Visiting? What are you planning to do with them?"],
+    ["I switched to a standing desk.", "share", "A standing desk? Do you like it?"],
+    ["I tried that new ramen place on the corner.", "share", "The ramen place? Was it good?"],
+    ["I just finished a big presentation.", "share", "A big presentation? What was it on?"],
+    ["What do you think we should do here?", "direct", ""],
+    ["Can you give us a quick update on your part?", "direct", ""],
+    ["Any blockers this week?", "direct", ""],
+    ["Why did you go with that approach?", "direct", ""],
+    ["What would you change about our process?", "direct", ""],
+    ["Can you walk me through what you did?", "direct", ""],
+    ["Do you have any questions for us?", "direct", ""],
+    ["How long do you think this will take?", "direct", ""],
+    ["What's the main risk you see?", "direct", ""],
+    ["Tell me a bit about yourself.", "direct", ""]
+  ],
+
+  explain: [
+    "What you do at work, to a friend who has no idea",
+    "How to make your favorite dish",
+    "Why you liked the last show or movie you watched",
+    "How your team decides what to work on next",
+    "The last problem you fixed at work",
+    "How to get from your home to your office",
+    "The rules of a game or sport you know",
+    "Why a project at work is late (or early)",
+    "How your phone or laptop is set up and why",
+    "A tool you use every day at work",
+    "What a normal workday looks like for you",
+    "How to plan a weekend trip",
+    "Why you chose your field of study",
+    "Something you learned recently",
+    "How to make a good cup of chai or coffee",
+    "Your favorite festival and what happens during it",
+    "How a meeting at your work usually runs",
+    "A small change that would make your job easier",
+    "How you would teach someone your job in one week",
+    "What makes a good teammate",
+    "How online shopping gets a package to your door",
+    "Why you like your favorite app",
+    "How to stay focused when you are tired",
+    "A mistake you made and what you learned",
+    "How your city or hometown is different from where you live now",
+    "Your plan for next week",
+    "How to set up a new phone",
+    "What a good weekend looks like for you",
+    "How you prepare for a big deadline",
+    "Why sleep matters, as if to a teenager",
+    "The plot of a movie you like, in under a minute",
+    "How you would pick a restaurant for a group",
+    "What the internet is, to a child",
+    "Your best tip for a new person joining your team"
+  ],
+
+  taboo: [
+    ["meeting", ["talk", "calendar"]],
+    ["deadline", ["date", "due"]],
+    ["email", ["mail", "inbox"]],
+    ["laptop", ["computer", "screen"]],
+    ["coffee", ["drink", "cup"]],
+    ["password", ["login", "secret"]],
+    ["calendar", ["date", "schedule"]],
+    ["spreadsheet", ["Excel", "table"]],
+    ["printer", ["paper", "print"]],
+    ["budget", ["money", "spend"]],
+    ["weekend", ["Saturday", "Sunday"]],
+    ["umbrella", ["rain", "wet"]],
+    ["elevator", ["lift", "floor"]],
+    ["manager", ["boss", "team"]],
+    ["presentation", ["slides", "talk"]],
+    ["interview", ["job", "questions"]],
+    ["vacation", ["holiday", "trip"]],
+    ["salary", ["pay", "money"]],
+    ["keyboard", ["type", "keys"]],
+    ["headphones", ["ears", "music"]],
+    ["charger", ["battery", "plug"]],
+    ["receipt", ["paper", "buy"]],
+    ["traffic", ["cars", "road"]],
+    ["microwave", ["heat", "food"]],
+    ["backpack", ["bag", "school"]],
+    ["feedback", ["opinion", "review"]],
+    ["promotion", ["job", "raise"]],
+    ["notification", ["phone", "alert"]],
+    ["wifi", ["internet", "connect"]],
+    ["deadline extension", ["late", "more time"]],
+    ["coworker", ["office", "colleague"]],
+    ["lunch break", ["eat", "noon"]],
+    ["video call", ["Zoom", "camera"]],
+    ["to-do list", ["tasks", "list"]],
+    ["sticky note", ["paper", "yellow"]],
+    ["whiteboard", ["marker", "write"]],
+    ["bug", ["error", "code"]],
+    ["update", ["new", "version"]],
+    ["refrigerator", ["cold", "kitchen"]],
+    ["airport", ["plane", "fly"]],
+    ["gym", ["exercise", "workout"]],
+    ["grocery store", ["food", "shop"]],
+    ["birthday", ["cake", "age"]],
+    ["recipe", ["cook", "steps"]],
+    ["weather forecast", ["rain", "tomorrow"]]
+  ],
+
+  beats: [
+    "Your weekend",
+    "A show or video you watched recently",
+    "Something you ate this week",
+    "A small win at work",
+    "Something annoying that happened this week",
+    "A place you went recently",
+    "Something you are looking forward to",
+    "A thing you learned this week",
+    "A conversation that went well",
+    "Something funny that happened",
+    "Your commute today",
+    "A new thing you tried",
+    "A plan for this weekend",
+    "A problem you solved"
+  ],
+
+  beatsExamples: [
+    ["I finally tried that new dosa place on Saturday.", "It was way better than I expected, and it reminded me of home.", "Have you been anywhere good to eat lately?"],
+    ["Our build broke an hour before the release.", "It was stressful, but we fixed it as a team and it felt good.", "Has anything like that happened on your team?"],
+    ["I watched a documentary about the ocean.", "It made me want to go to the beach more often.", "Do you watch documentaries, or more shows?"]
+  ],
+
+  explainTips: [
+    "Headline first: say the one-sentence version before any details.",
+    "Lost a word? Describe it. \"The thing that tracks all the tasks... the board.\"",
+    "Use an example: \"Like last week when...\" often explains faster.",
+    "Simple words beat perfect words. Keep going."
+  ],
+
+  tabooTips: [
+    "What is it for? Who uses it? Where do you find it?",
+    "Try: \"It's like a ... but ...\"",
+    "Give an example of when you use it.",
+    "Keep talking. A messy description is still a win."
+  ],
+
+  ratings: ["Froze", "Rough", "Okay", "Smooth", "Flowed"]
+};
+</script>
+<script>
+/* ---------- Storage (localStorage with in-memory fallback) ---------- */
+const mem = {};
+const PREFIX = 'unfreeze:';
+function load(k, d){
+  let raw = null;
+  try{ raw = localStorage.getItem(PREFIX + k); }catch(e){ raw = mem[k] !== undefined ? mem[k] : null; }
+  if(raw === null || raw === undefined) return d;
+  try{ return JSON.parse(raw); }catch(e){ return d; }
+}
+function save(k, v){
+  const s = JSON.stringify(v);
+  try{ localStorage.setItem(PREFIX + k, s); }catch(e){ mem[k] = s; }
+}
+
+function arr(v){ return Array.isArray(v) ? v.filter(x => x && typeof x === 'object') : []; }
+function str(v, max){ return (typeof v === 'string' ? v : (v == null ? '' : String(v))).slice(0, max || 500); }
+const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+function cleanReps(list){
+  return arr(list).map(r => {
+    const t = Number(r.t);
+    const okT = isFinite(t) && t > 0 && !isNaN(new Date(t).getTime());
+    const day = DAY_RE.test(r.day) ? r.day : (okT ? dayKey(new Date(t)) : null);
+    if(!day) return null;
+    const rating = Math.round(Number(r.rating));
+    return { id:str(r.id || uid(), 40), t: okT ? t : Date.parse(day + 'T12:00:00') || Date.now(), day, kind:str(r.kind, 20) || 'real',
+      prompt:str(r.prompt, 300), rating:(rating >= 1 && rating <= 5) ? rating : null, note:str(r.note, 200), secs: isFinite(Number(r.secs)) && r.secs != null ? Number(r.secs) : null };
+  }).filter(Boolean);
+}
+function cleanObj(v, d){ return (v && typeof v === 'object' && !Array.isArray(v)) ? Object.assign({}, d, v) : Object.assign({}, d); }
+const S = {
+  reps: [],        // {id,t,day,kind,prompt,rating,note}
+  skips: [], friends: [], mine: [], beats: [], prep: '', sound: true,
+  sync: { url:'', key:'', header:'Authorization', raw:false }, outbox: [], syncInfo: { state:'off', msg:'', at:0 }
+};
+function loadState(){
+  S.reps = cleanReps(load('reps', []));
+  S.skips = arr(load('skips', [])).filter(x => DAY_RE.test(x.day)).map(x => ({ t:Number(x.t) || 0, day:x.day, kind:str(x.kind,20), prompt:str(x.prompt,300) }));
+  S.friends = arr(load('friends', [])).map(f => ({ id:str(f.id || uid(),40), name:str(f.name,40) || 'Friend', n1:str(f.n1,140), n2:str(f.n2,140), last:Number(f.last) || 0 }));
+  S.mine = arr(load('mine', [])).map(m => ({ id:str(m.id || uid(),40), text:str(m.text,140), day:DAY_RE.test(m.day) ? m.day : dayKey() })).filter(m => m.text);
+  S.beats = arr(load('beats', [])).map(b => ({ id:str(b.id || uid(),40), day:DAY_RE.test(b.day) ? b.day : dayKey(), prompt:str(b.prompt,120), a:str(b.a,200), b:str(b.b,200), c:str(b.c,200) }));
+  S.prep = str(load('prep', ''), 180);
+  S.sound = load('sound', true) !== false;
+  const sy = cleanObj(load('sync', null), { url:'', key:'', header:'Authorization', raw:false });
+  S.sync = { url:str(sy.url,2000), key:str(sy.key,2000), header:str(sy.header,100) || 'Authorization', raw:!!sy.raw };
+  S.outbox = arr(load('outbox', [])).slice(-300);
+  const si = cleanObj(load('syncInfo', null), { state:'off', msg:'', at:0 });
+  S.syncInfo = { state:str(si.state,20) || 'off', msg:str(si.msg,300), at:Number(si.at) || 0 };
+}
+
+const KINDS = {
+  freeze:  { label:'Freeze drill', color:'var(--amber)', ico:'⚡' },
+  explain: { label:'Explain it',   color:'var(--blue)',  ico:'💬' },
+  taboo:   { label:'Taboo word',   color:'var(--violet)', ico:'🚫' },
+  beats:   { label:'Three beats',  color:'var(--teal)',  ico:'3️⃣' },
+  friend:  { label:'Friend check-in', color:'var(--rose)', ico:'🤝' },
+  real:    { label:'Real chat',    color:'var(--gold)',  ico:'🌱' }
+};
+
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function dayKey(d){ d = d || new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+function addDays(key, n){ const p = key.split('-').map(Number); const d = new Date(p[0], p[1]-1, p[2]); d.setDate(d.getDate()+n); return dayKey(d); }
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function fmtDay(key){
+  const today = dayKey();
+  if(key === today) return 'Today';
+  if(key === addDays(today,-1)) return 'Yesterday';
+  const p = key.split('-').map(Number);
+  return new Date(p[0],p[1]-1,p[2]).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+}
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(()=> t.classList.remove('show'), 2200);
+}
+function confetti(x, y){
+  const colors = ['#ff7a59','#ffc267','#5ce0a8','#6fc3e0','#b39ddb'];
+  for(let i=0;i<18;i++){
+    const p = document.createElement('div'); p.className = 'confetti-piece';
+    p.style.left = x + 'px'; p.style.top = y + 'px'; p.style.background = colors[i % colors.length];
+    p.style.setProperty('--dx', (Math.random()*200-100) + 'px');
+    p.style.setProperty('--dy', (Math.random()*-160-30) + 'px');
+    p.style.setProperty('--rot', (Math.random()*540) + 'deg');
+    document.body.appendChild(p); setTimeout(()=> p.remove(), 800);
+  }
+}
+let actx = null;
+function beep(freq, dur){
+  if(!S.sound) return;
+  try{
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.frequency.value = freq || 660; o.connect(g); g.connect(actx.destination);
+    g.gain.setValueAtTime(0.12, actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + (dur || 0.15));
+    o.start(); o.stop(actx.currentTime + (dur || 0.15));
+  }catch(e){}
+}
+
+/* ---------- Stats ---------- */
+function repDays(){ const s = new Set(); S.reps.forEach(r => s.add(r.day)); return s; }
+function streak(){
+  const days = repDays(); let d = dayKey();
+  if(!days.has(d)) d = addDays(d,-1);
+  let n = 0; while(days.has(d)){ n++; d = addDays(d,-1); }
+  return n;
+}
+function bestStreak(){
+  const days = Array.from(repDays()).sort(); let best = 0, cur = 0, prev = null;
+  days.forEach(d => { cur = (prev && addDays(prev,1) === d) ? cur+1 : 1; best = Math.max(best,cur); prev = d; });
+  return best;
+}
+function todayCount(){ const t = dayKey(); return S.reps.filter(r => r.day === t).length; }
+function avg(list){ const r = list.filter(x => x.rating); return r.length ? r.reduce((a,b)=>a+b.rating,0)/r.length : null; }
+function statsNow(){ return { streak:streak(), today:todayCount(), total:S.reps.length }; }
+
+function renderStats(){
+  $('stat-today').textContent = todayCount();
+  const st = streak();
+  $('stat-streak').innerHTML = st + (st > 0 ? ' <span class="flame-icon">🔥</span>' : '');
+  $('stat-total').textContent = S.reps.length;
+  $('stat-best-cap').textContent = 'best streak ' + bestStreak();
+  const since = addDays(dayKey(), -6);
+  const a = avg(S.reps.filter(r => r.day >= since));
+  $('stat-avg').textContent = a ? a.toFixed(1) : '-';
+  const days = repDays(); const today = dayKey(); let html = '<div class="week-dots">'; let on = 0;
+  for(let i=6;i>=0;i--){
+    const k = addDays(today,-i); const p = k.split('-').map(Number);
+    const lbl = new Date(p[0],p[1]-1,p[2]).toLocaleDateString(undefined,{weekday:'narrow'});
+    const has = days.has(k); if(has) on++;
+    html += '<div class="week-dot' + (has?' on':'') + (i===0?' today':'') + '" title="' + k + '"><i>' + lbl + '</i></div>';
+  }
+  html += '</div><span class="week-count">' + on + '/7 days this week · goal ' + CONFIG.dailyGoal + ' reps a day</span>';
+  $('week-row').innerHTML = html;
+  ['freeze','explain','taboo','real','beats'].forEach(k => {
+    const el = $('cnt-' + k); if(!el) return;
+    const all = S.reps.filter(r => r.kind === k); const a2 = avg(all);
+    el.textContent = all.length ? (all.length + ' done · avg smoothness ' + (a2 ? a2.toFixed(1) : '-')) : 'No reps yet';
+  });
+}
+
+function logRep(kind, prompt, rating, note, secs){
+  const rep = { id:uid(), t:Date.now(), day:dayKey(), kind, prompt:String(prompt || '').slice(0,300), rating:rating || null, note:(note||'').trim().slice(0,200), secs:(secs == null ? null : secs) };
+  S.reps.push(rep); save('reps', S.reps);
+  renderAll();
+  queueSync(rep);
+  const n = todayCount();
+  if(n === CONFIG.dailyGoal) toast('Daily goal hit. Nice work 🎉');
+  return rep;
+}
+function logSkip(kind, prompt){
+  S.skips.push({ t:Date.now(), day:dayKey(), kind, prompt }); 
+  if(S.skips.length > 500) S.skips = S.skips.slice(-500);
+  save('skips', S.skips);
+}
+
+/* ---------- Today ---------- */
+function renderPause(){
+  const pl = pick(CONFIG.pauseLines);
+  $('pause-card').innerHTML =
+    '<p class="potd-eyebrow">Pause line to keep ready</p>' +
+    '<p class="potd-text">"' + esc(pl) + '"</p>' +
+    '<p class="potd-sub">Say it out loud three times right now. When your mind goes blank, this buys you two or three seconds, and it just sounds thoughtful.</p>' +
+    '<button class="ghost-btn" id="pause-next" style="--tag-color:var(--teal);--tag-bg:var(--teal-dark)">Another one</button>';
+  $('pause-next').onclick = renderPause;
+}
+function renderPicks(){
+  const f = S.friends.slice().sort((a,b)=> (a.last||0) - (b.last||0))[0];
+  const items = [
+    { kind:'freeze', text:'Do one freeze drill round', sub:CONFIG.repsPerSession + ' quick prompts, out loud', btn:'Start', act:()=>startReel('freeze') },
+    { kind:'explain', text:'Explain one thing headline first', sub:'60 seconds, describe around missing words', btn:'Start', act:()=>startReel('explain') }
+  ];
+  if(f){
+    items.push({ kind:'friend', text:'Message ' + f.name, sub:'Ask about: ' + (f.n1 || f.n2 || 'how they are doing'), btn:'Open friends', act:()=>showTab('friends') });
+  }else{
+    items.push({ kind:'friend', text:'Add one friend you have not talked to in a while', sub:'Write one thing you remember about their life', btn:'Add a friend', act:()=>{ showTab('friends'); $('f-name').focus(); } });
+  }
+  items.push({ kind:'beats', text:'Build one three-beat story', sub:'What happened, why it mattered, question back', btn:'Open builder', act:()=>{ showTab('drills'); $('beats-card').scrollIntoView({behavior:'smooth'}); } });
+  const colors = { freeze:['--amber','--amber-dark'], explain:['--blue','--blue-dark'], friend:['--rose','--rose-dark'], beats:['--teal','--teal-dark'] };
+  $('today-picks').innerHTML = items.map((it,i) =>
+    '<div class="card" style="--tag-color:var(' + colors[it.kind][0] + ');--tag-bg:var(' + colors[it.kind][1] + ')">' +
+    '<span class="tag">' + KINDS[it.kind].label + '</span>' +
+    '<p class="task-text">' + esc(it.text) + '</p><p class="task-sub">' + esc(it.sub) + '</p>' +
+    '<button class="complete-btn" data-pick="' + i + '">' + esc(it.btn) + '</button></div>').join('');
+  $('today-picks').querySelectorAll('[data-pick]').forEach(b => b.onclick = () => items[+b.dataset.pick].act());
+}
+function initPrep(){
+  $('prep-input').value = S.prep || '';
+  $('prep-saved').textContent = S.prep ? 'Saved. Read it right before you walk in.' : '';
+  $('prep-input').addEventListener('keydown', e => { if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); $('prep-save').click(); } });
+  $('prep-save').onclick = () => {
+    S.prep = $('prep-input').value.trim(); save('prep', S.prep);
+    $('prep-saved').textContent = S.prep ? 'Saved. Read it right before you walk in.' : 'Cleared.';
+  };
+}
+
+/* ---------- Reel (freeze / explain / taboo / real) ---------- */
+const R = { kind:null, queue:[], idx:0, timer:null, current:null, rating:0 };
+function buildQueue(kind){
+  if(kind === 'freeze') return shuffle(CONFIG.freeze).slice(0, CONFIG.repsPerSession);
+  if(kind === 'explain') return shuffle(CONFIG.explain).slice(0, 3);
+  if(kind === 'taboo') return shuffle(CONFIG.taboo).slice(0, CONFIG.repsPerSession);
+  return [null];
+}
+function startReel(kind){
+  stopTimer();
+  R.kind = kind; R.queue = buildQueue(kind); R.idx = 0; R.secs = null;
+  $('reel').style.removeProperty('--kc');
+  $('reel').dataset.kind = kind; $('reel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  $('reel-sound').innerHTML = S.sound ? '&#128266;' : '&#128263;';
+  if(kind === 'real') renderRate('A real conversation'); else renderReady();
+}
+function closeReel(){
+  stopTimer();
+  $('reel').classList.remove('show'); document.body.style.overflow = '';
+}
+function renderSegs(){
+  const n = R.queue.length;
+  let h = ''; for(let i=0;i<n;i++) h += '<div class="reel-seg' + (i < R.idx ? ' done' : i === R.idx ? ' cur' : '') + '"></div>';
+  $('reel-segs').innerHTML = n > 1 ? h : '';
+}
+function promptText(item){
+  if(R.kind === 'freeze') return item[0];
+  if(R.kind === 'explain') return item;
+  if(R.kind === 'taboo') return item[0];
+  return '';
+}
+function readyHTML(item){
+  if(R.kind === 'freeze'){
+    const who = item[1] === 'share' ? 'A coworker tells you' : item[1] === 'direct' ? 'In a meeting, someone asks you' : 'A coworker asks you';
+    const hint = item[1] === 'share'
+      ? 'Echo move: pick a word they said and turn it into a question.'
+      : item[1] === 'direct'
+        ? 'Pause line first, then your headline answer in one sentence.'
+        : 'Pause line or three beats: what happened, why it mattered, question back.';
+    const help = item[2]
+      ? '<b>Echo example:</b> "' + esc(item[2]) + '"'
+      : '<b>Try:</b> "' + esc(pick(CONFIG.pauseLines)) + '" then one thing that happened, why it mattered, and a question back.';
+    return '<span class="kind-chip">Freeze drill</span><p class="who">' + who + '</p>' +
+      '<p class="quick-text">"' + esc(item[0]) + '"</p><p class="quick-hint">' + hint + '</p>' +
+      '<button class="quick-link" id="help-btn">Need a starter?</button><div class="helpbox" id="helpbox">' + help + '</div>';
+  }
+  if(R.kind === 'explain'){
+    return '<span class="kind-chip">Explain it</span><p class="who">Explain out loud</p>' +
+      '<p class="quick-text">' + esc(item) + '</p>' +
+      '<p class="quick-sub">Start with the one-sentence version. Then one detail. Then an example. If a word goes missing, describe it and keep going.</p>' +
+      '<button class="quick-link" id="help-btn">Show the shape</button><div class="helpbox" id="helpbox">' +
+      '<b>1. Headline:</b> "Basically, ..."<br><b>2. Detail:</b> "The main thing is ..."<br><b>3. Example:</b> "Like last week when ..."</div>';
+  }
+  return '<span class="kind-chip">Taboo word</span><p class="who">Describe this without saying it</p>' +
+    '<p class="quick-text">' + esc(item[0]) + '</p>' +
+    '<p class="quick-sub">Also off limits:</p><div class="banned">' + item[1].map(w => '<span>' + esc(w) + '</span>').join('') + '</div>' +
+    '<button class="quick-link" id="help-btn">Stuck?</button><div class="helpbox" id="helpbox">' + CONFIG.tabooTips.map(esc).join('<br>') + '</div>';
+}
+function renderReady(){
+  renderSegs();
+  const item = R.queue[R.idx]; R.current = item;
+  $('reel-body').innerHTML = '<div class="face">' + readyHTML(item) + '</div>' +
+    '<button class="quick-go" id="go-btn">Start ' + CONFIG.timers.countdown + ', 2, 1</button>' +
+    '<button class="quick-skip" id="skip-btn">Skip this one</button>';
+  $('help-btn').onclick = () => $('helpbox').classList.toggle('show');
+  $('go-btn').onclick = renderCount;
+  $('skip-btn').onclick = () => {
+    logSkip(R.kind, promptText(item));
+    const pool = R.kind === 'freeze' ? CONFIG.freeze : R.kind === 'explain' ? CONFIG.explain : CONFIG.taboo;
+    let next = pick(pool), guard = 0;
+    while(R.queue.indexOf(next) !== -1 && guard++ < 20) next = pick(pool);
+    R.queue[R.idx] = next; renderReady();
+  };
+}
+function stopTimer(){ if(R.timer){ clearInterval(R.timer); R.timer = null; } R.token = (R.token || 0) + 1; }
+function renderCount(){
+  stopTimer();
+  const token = R.token;
+  const end = Date.now() + CONFIG.timers.countdown * 1000;
+  let n = CONFIG.timers.countdown;
+  const item = R.current;
+  const show = () => {
+    $('reel-body').innerHTML = '<div class="face" style="justify-content:center;text-align:center">' +
+      '<p class="quick-text small">' + (R.kind === 'freeze' ? '"' + esc(item[0]) + '"' : esc(promptText(item))) + '</p>' +
+      '<div class="count-big">' + n + '</div><p class="quick-hint" style="text-align:center">Get ready to open your mouth. No perfect answer needed.</p></div>';
+    beep(520, .12);
+  };
+  show();
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    const left = Math.ceil((end - Date.now()) / 1000);
+    if(left <= 0){ stopTimer(); beep(880, .25); renderTalk(); }
+    else if(left !== n){ n = left; show(); }
+  }, 200);
+}
+function renderTalk(){
+  stopTimer();
+  const token = R.token;
+  const total = CONFIG.timers[R.kind]; let left = total;
+  const start = Date.now(), end = start + total * 1000;
+  const item = R.current; const C = 2 * Math.PI * 80;
+  const remind = R.kind === 'freeze'
+    ? (item[1] === 'share' ? '<b>Echo it:</b> repeat a word they said as a question.' : '<b>Open with:</b> "' + esc(pick(CONFIG.pauseLines)) + '"')
+    : R.kind === 'explain' ? '<b>Headline first.</b> ' + esc(pick(CONFIG.explainTips.slice(1)))
+    : '<b>Talk around it.</b> ' + esc(pick(CONFIG.tabooTips));
+  $('reel-body').innerHTML = '<div class="face" style="justify-content:flex-start">' +
+    '<span class="kind-chip">Talk now</span>' +
+    '<p class="quick-text small">' + (R.kind === 'freeze' ? '"' + esc(item[0]) + '"' : esc(promptText(item))) + '</p>' +
+    (R.kind === 'taboo' ? '<div class="banned">' + item[1].map(w => '<span>' + esc(w) + '</span>').join('') + '<span>' + esc(item[0]) + '</span></div>' : '') +
+    '<div class="ring-wrap"><svg viewBox="0 0 180 180"><circle class="ring-bg" cx="90" cy="90" r="80"/><circle class="ring-fg" id="ring" cx="90" cy="90" r="80" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
+    '<div class="ring-num"><span id="ring-n">' + left + '</span><small>seconds</small></div></div>' +
+    '<div class="remind">' + remind + '</div></div>' +
+    '<button class="quick-go" id="talk-done">I\'m done</button>';
+  const finish = (natural) => {
+    if(token !== R.token) return;
+    stopTimer();
+    R.secs = Math.min(total, Math.round((Date.now() - start) / 1000));
+    if(natural) beep(440, .3);
+    renderRate(promptText(item));
+  };
+  $('talk-done').onclick = () => finish(false);
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    const l = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+    if(l !== left){
+      left = l;
+      const n = $('ring-n'), ring = $('ring');
+      if(n) n.textContent = left;
+      if(ring) ring.setAttribute('stroke-dashoffset', String(C * (1 - left/total)));
+    }
+    if(Date.now() >= end) finish(true);
+  }, 200);
+}
+function renderRate(prompt){
+  R.rating = 0; R.saving = false; renderSegs();
+  const secs = R.secs; R.secs = null;
+  const isReal = R.kind === 'real';
+  $('reel-body').innerHTML = '<div class="face">' +
+    '<span class="kind-chip">' + (isReal ? 'Real chat' : 'How did it go?') + '</span>' +
+    (isReal
+      ? '<p class="quick-text small">Log a real conversation</p><label class="field-label" for="real-what" style="--tag-color:var(--gold)">What was it?</label><input class="input" id="real-what" maxlength="140" placeholder="e.g. Chat with Ravi at the coffee machine">'
+      : '<p class="quick-text small">' + esc(prompt) + '</p>') +
+    '<p class="quick-sub" style="margin-top:6px">How smooth was it?</p>' +
+    '<div class="rate-row">' + CONFIG.ratings.map((l,i) => '<button class="rate-btn" aria-pressed="false" aria-label="' + (i+1) + ' of 5, ' + l + '" data-r="' + (i+1) + '"><b>' + (i+1) + '</b><small>' + l + '</small></button>').join('') + '</div>' +
+    '<label class="field-label" for="rep-note" style="--tag-color:var(--kc)">Note (optional)</label>' +
+    '<input class="input" id="rep-note" maxlength="160" placeholder="Where did I freeze?">' +
+    '</div><button class="quick-go" id="rate-save" disabled>Log rep</button>' +
+    '<button class="quick-skip" id="rate-skip">' + (isReal ? 'Cancel' : 'Skip without logging') + '</button>';
+  document.querySelectorAll('.rate-btn').forEach(b => b.onclick = () => {
+    R.rating = +b.dataset.r;
+    document.querySelectorAll('.rate-btn').forEach(x => { x.classList.toggle('sel', x === b); x.setAttribute('aria-pressed', String(x === b)); });
+    $('rate-save').disabled = false;
+  });
+  $('rate-save').onclick = (e) => {
+    if(R.saving || !R.rating) return; R.saving = true;
+    const p = isReal ? (($('real-what').value || '').trim() || 'Real conversation') : prompt;
+    logRep(R.kind, p, R.rating, $('rep-note').value, secs);
+    beep(990, .12);
+    confetti(e.clientX || innerWidth/2, e.clientY || innerHeight/2);
+    nextOrDone();
+  };
+  $('rep-note').addEventListener('keydown', ev => { if(ev.key === 'Enter' && !ev.isComposing){ ev.preventDefault(); $('rate-save').click(); } });
+  $('rate-skip').onclick = () => {
+    if(R.saving) return; R.saving = true;
+    if(isReal){ closeReel(); return; }
+    logSkip(R.kind, prompt); nextOrDone();
+  };
+}
+function nextOrDone(){
+  R.idx++;
+  if(['freeze','explain','taboo'].indexOf(R.kind) !== -1 && R.idx < R.queue.length){ renderReady(); return; }
+  renderSegs();
+  const n = todayCount();
+  $('reel-body').innerHTML = '<div class="done-wrap"><span class="done-emoji">🎉</span><h3>Round done</h3>' +
+    '<p>' + n + ' rep' + (n===1?'':'s') + ' today · streak ' + streak() + ' day' + (streak()===1?'':'s') + '</p>' +
+    '<p>Every time you talk through the blank moment, the next one gets smaller.</p></div>' +
+    (['freeze','explain','taboo'].indexOf(R.kind) !== -1 ? '<button class="quick-go" id="again-btn">Another round</button>' : '') +
+    '<button class="quick-ghost" id="close-btn">Back to the app</button>';
+  if($('again-btn')) $('again-btn').onclick = () => startReel(R.kind);
+  $('close-btn').onclick = closeReel;
+}
+
+/* ---------- Three beats ---------- */
+let beatsPrompt = '';
+function newBeats(){
+  let p = pick(CONFIG.beats), g = 0; while(p === beatsPrompt && g++ < 10) p = pick(CONFIG.beats);
+  beatsPrompt = p; $('beats-prompt').textContent = 'Topic: ' + p;
+  $('beats-ex').classList.remove('show');
+}
+function renderBeatsSaved(){
+  const list = S.beats.slice(-3).reverse();
+  $('beats-saved').innerHTML = list.length ? '<p class="section-label" style="margin-top:20px">Recent stories</p>' + list.map(b =>
+    '<div class="opener" style="display:flex;gap:8px;align-items:flex-start"><span style="flex:1;min-width:0"><b>' + esc(b.prompt) + ' · ' + fmtDay(b.day) + '</b>' + esc(b.a) + ' ' + esc(b.b) + ' ' + esc(b.c) + '</span>' +
+    '<button class="x-btn" data-bdel="' + esc(b.id) + '" aria-label="Delete story">&#10005;</button></div>').join('') : '';
+  $('beats-saved').querySelectorAll('[data-bdel]').forEach(x => x.onclick = () => {
+    if(!confirm('Delete this story? Any rep you logged for it stays in your log.')) return;
+    S.beats = S.beats.filter(b => b.id !== x.dataset.bdel); save('beats', S.beats); renderBeatsSaved();
+  });
+}
+function initBeats(){
+  newBeats(); renderBeatsSaved();
+  $('beats-new').onclick = () => { if(!$('beat-a').value.trim()) logSkip('beats', beatsPrompt); newBeats(); };
+  $('beats-example').onclick = () => {
+    const ex = pick(CONFIG.beatsExamples);
+    $('beats-ex').innerHTML = '<b>1.</b> ' + esc(ex[0]) + '<br><b>2.</b> ' + esc(ex[1]) + '<br><b>3.</b> ' + esc(ex[2]);
+    $('beats-ex').classList.add('show');
+  };
+  $('beats-save').onclick = () => {
+    const a = $('beat-a').value.trim(), b = $('beat-b').value.trim(), c = $('beat-c').value.trim();
+    if(!a || !b || !c){ toast('Fill in all three beats first'); return; }
+    S.beats.push({ id:uid(), day:dayKey(), prompt:beatsPrompt, a, b, c }); save('beats', S.beats);
+    $('beat-a').value = $('beat-b').value = $('beat-c').value = '';
+    const prompt = beatsPrompt;
+    stopTimer(); R.secs = null;
+    R.kind = 'beats'; R.queue = [null]; R.idx = 0;
+    $('reel').dataset.kind = 'freeze'; $('reel').style.setProperty('--kc','var(--teal)');
+    $('reel').classList.add('show'); document.body.style.overflow = 'hidden';
+    renderRate('Three beats: ' + prompt);
+    renderBeatsSaved(); newBeats();
+  };
+}
+
+/* ---------- Friends ---------- */
+function dayNum(key){ const p = key.split('-').map(Number); return Math.round(Date.UTC(p[0], p[1]-1, p[2]) / 86400000); }
+function daysSince(t){ return t ? Math.max(0, dayNum(dayKey()) - dayNum(dayKey(new Date(t)))) : null; }
+function opener(f){
+  const n = (f.n1 || f.n2 || '').replace(/[.!?\s]+$/,'');
+  if(!n) return 'Hey ' + f.name + '! Been a while. How have you been?';
+  return 'Hey ' + f.name + '! I was just thinking about you. Last time you mentioned ' + n + '. How is that going?';
+}
+function renderFriends(){
+  const list = S.friends.slice().sort((a,b) => (a.last||0) - (b.last||0));
+  $('friend-list').innerHTML = list.length ? list.map(f => {
+    const d = daysSince(f.last);
+    const lastTxt = d === null ? 'not logged yet' : d === 0 ? 'talked today' : d + ' day' + (d===1?'':'s') + ' ago';
+    return '<div class="friend"><div class="friend-top"><p class="friend-name">' + esc(f.name) + '</p>' +
+      '<span class="friend-last' + (d === null || d > 14 ? ' stale' : '') + '">' + lastTxt + '</span></div>' +
+      '<ul>' + [f.n1, f.n2].filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>' +
+      '<div class="opener"><b>Opener idea</b>' + esc(opener(f)) + '</div>' +
+      '<div class="btn-row"><button class="ghost-btn" data-talk="' + esc(f.id) + '">Talked today</button>' +
+      '<button class="ghost-btn" data-copy="' + esc(f.id) + '">Copy opener</button>' +
+      '<button class="ghost-btn" data-edit="' + esc(f.id) + '">Edit</button>' +
+      '<button class="ghost-btn danger" data-del="' + esc(f.id) + '">Remove</button></div></div>';
+  }).join('') : '<p class="empty-hist">No friends added yet. Start with one person you have not talked to in a while, and one thing you remember about their life.</p>';
+  const L = $('friend-list');
+  L.querySelectorAll('[data-talk]').forEach(b => b.onclick = () => {
+    const f = S.friends.find(x => x.id === b.dataset.talk); if(!f) return;
+    f.last = Date.now(); save('friends', S.friends);
+    stopTimer(); R.secs = null;
+    R.kind = 'friend'; R.queue = [null]; R.idx = 0;
+    $('reel').dataset.kind = 'freeze'; $('reel').style.setProperty('--kc','var(--rose)');
+    $('reel').classList.add('show'); document.body.style.overflow = 'hidden';
+    renderRate('Check-in with ' + f.name);
+    renderFriends();
+  });
+  L.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => {
+    const f = S.friends.find(x => x.id === b.dataset.copy); if(!f) return;
+    copyText(opener(f), 'Opener copied');
+  });
+  L.querySelectorAll('[data-edit]').forEach(b => b.onclick = () => {
+    const f = S.friends.find(x => x.id === b.dataset.edit); if(!f) return;
+    $('f-id').value = f.id; $('f-name').value = f.name; $('f-n1').value = f.n1 || ''; $('f-n2').value = f.n2 || '';
+    $('friend-form-tag').textContent = 'Edit ' + f.name; $('f-cancel').style.display = '';
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  L.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
+    const f = S.friends.find(x => x.id === b.dataset.del); if(!f) return;
+    if(!confirm('Remove ' + f.name + '?')) return;
+    S.friends = S.friends.filter(x => x.id !== f.id); save('friends', S.friends);
+    if($('f-id').value === f.id) resetFriendForm();
+    renderFriends(); renderPicks();
+  });
+}
+function resetFriendForm(){
+  $('f-id').value = $('f-name').value = $('f-n1').value = $('f-n2').value = '';
+  $('friend-form-tag').textContent = 'Add a friend'; $('f-cancel').style.display = 'none';
+}
+function renderMine(){
+  $('mine-list').innerHTML = S.mine.length ? S.mine.slice().reverse().map(m =>
+    '<div class="mine-item"><span>' + esc(m.text) + '</span><small class="hist-date">' + fmtDay(m.day) + '</small><button class="x-btn" data-mdel="' + esc(m.id) + '" aria-label="Remove">&#10005;</button></div>').join('')
+    : '<p class="empty-hist">Nothing yet. Add one small thing from today.</p>';
+  $('mine-list').querySelectorAll('[data-mdel]').forEach(b => b.onclick = () => {
+    S.mine = S.mine.filter(x => x.id !== b.dataset.mdel); save('mine', S.mine); renderMine();
+  });
+}
+function initFriends(){
+  $('f-save').onclick = () => {
+    const name = $('f-name').value.trim(); if(!name){ toast('Add a name first'); return; }
+    const id = $('f-id').value;
+    if(id){
+      const f = S.friends.find(x => x.id === id);
+      if(f){ f.name = name; f.n1 = $('f-n1').value.trim(); f.n2 = $('f-n2').value.trim(); }
+      else S.friends.push({ id:uid(), name, n1:$('f-n1').value.trim(), n2:$('f-n2').value.trim(), last:0 });
+    }else{
+      S.friends.push({ id:uid(), name, n1:$('f-n1').value.trim(), n2:$('f-n2').value.trim(), last:0 });
+    }
+    save('friends', S.friends); resetFriendForm(); renderFriends(); renderPicks(); toast('Saved');
+  };
+  $('f-cancel').onclick = resetFriendForm;
+  ['f-name','f-n1','f-n2'].forEach(id => $(id).addEventListener('keydown', e => { if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); $('f-save').click(); } }));
+  const addMine = () => {
+    const t = $('mine-input').value.trim(); if(!t) return;
+    S.mine.push({ id:uid(), text:t, day:dayKey() }); if(S.mine.length > 30) S.mine = S.mine.slice(-30);
+    save('mine', S.mine); $('mine-input').value = ''; renderMine();
+  };
+  $('mine-add').onclick = addMine;
+  $('mine-input').onkeydown = e => { if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); addMine(); } };
+}
+
+/* ---------- Log ---------- */
+function renderLog(){
+  const keys = Object.keys(KINDS);
+  $('avg-grid').innerHTML = keys.map(k => {
+    const all = S.reps.filter(r => r.kind === k); const a = avg(all);
+    const sk = S.skips.filter(s => s.kind === k).length;
+    return '<div class="avg-cell"><p class="k" style="color:' + KINDS[k].color + '">' + KINDS[k].label + '</p>' +
+      '<p class="v">' + (a ? a.toFixed(1) : '-') + '</p><p class="s">' + all.length + (all.length === 1 ? ' rep · ' : ' reps · ') + sk + ' skipped</p></div>';
+  }).join('');
+  const list = S.reps.slice().reverse().slice(0, 150);
+  $('history').innerHTML = list.length ? list.map(r =>
+    '<div class="hist-row"><span class="hist-date">' + fmtDay(r.day) + '<br>' + new Date(r.t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}) + '</span>' +
+    '<span class="hist-main"><span class="hist-kind" style="color:' + (KINDS[r.kind] ? KINDS[r.kind].color : 'var(--muted)') + '">' + (KINDS[r.kind] ? KINDS[r.kind].label : esc(r.kind)) + '</span>' +
+    '<span class="hist-prompt">' + esc(r.prompt) + '</span>' + (r.note ? '<span class="hist-note">' + esc(r.note) + '</span>' : '') + '</span>' +
+    '<span class="hist-dots" title="Smoothness ' + (r.rating || '-') + '/5">' + [1,2,3,4,5].map(i => '<span class="dot' + (r.rating >= i ? ' done' : '') + '"></span>').join('') + '</span></div>').join('')
+    : '<p class="empty-hist">No reps yet. Start a freeze drill and your log will show up here.</p>';
+}
+function initLog(){
+  $('reset-btn').onclick = () => {
+    if(!confirm('Clear all reps and skips? Friends and notes stay.')) return;
+    S.reps = []; S.skips = []; save('reps', S.reps); save('skips', S.skips); renderAll();
+  };
+}
+
+/* ---------- Copy for coach ---------- */
+function coachSummary(){
+  const today = dayKey(), since = addDays(today, -13);
+  const recent = S.reps.filter(r => r.day >= since);
+  const skips = S.skips.filter(s => s.day >= since);
+  const L = [];
+  L.push('Reps practice summary (' + new Date().toLocaleDateString() + ')');
+  L.push('');
+  const pl = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
+  L.push('Streak: ' + pl(streak(),'day') + ' (best ' + bestStreak() + ')');
+  L.push('Reps today: ' + todayCount() + ' | Total reps: ' + S.reps.length + ' | Last 14 days: ' + recent.length);
+  const a14 = avg(recent); L.push('Average smoothness, last 14 days: ' + (a14 ? a14.toFixed(1) + '/5' : 'n/a'));
+  L.push('');
+  L.push('Average smoothness by drill (last 14 days):');
+  Object.keys(KINDS).forEach(k => {
+    const rs = recent.filter(r => r.kind === k); const a = avg(rs);
+    L.push('- ' + KINDS[k].label + ': ' + (rs.length ? (a ? a.toFixed(1) : 'n/a') + '/5 over ' + pl(rs.length,'rep') : 'no reps'));
+  });
+  L.push('');
+  L.push('Skipped (last 14 days): ' + (skips.length ? skips.length : 'none'));
+  Object.keys(KINDS).forEach(k => {
+    const ss = skips.filter(s => s.kind === k); if(!ss.length) return;
+    L.push('- ' + KINDS[k].label + ' (' + ss.length + '): ' + ss.slice(-8).map(s => '"' + s.prompt + '"').join(', '));
+  });
+  const unused = ['freeze','explain','taboo','beats','friend','real'].filter(k => !recent.some(r => r.kind === k));
+  if(unused.length) L.push('Drills not done at all in 14 days: ' + unused.map(k => KINDS[k].label).join(', '));
+  L.push('');
+  L.push('Reps, last 14 days:');
+  if(!recent.length) L.push('(none)');
+  recent.forEach(r => {
+    L.push('- ' + r.day + ' ' + new Date(r.t).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) + ' | ' + (KINDS[r.kind] ? KINDS[r.kind].label : r.kind) +
+      ' | "' + r.prompt + '" | smooth ' + (r.rating || '-') + '/5' + (r.secs != null ? ' | talked ' + r.secs + 's' : '') + (r.note ? ' | note: ' + r.note : ''));
+  });
+  if(S.friends.length){
+    L.push('');
+    L.push('Friends tracked: ' + S.friends.map(f => f.name + ' (' + (f.last ? daysSince(f.last) + ' days since last talk' : 'not logged') + ')').join(', '));
+  }
+  return L.join('\n');
+}
+function showTextFallback(text, title){
+  stopTimer();
+  R.kind = 'coach'; R.queue = [null]; R.idx = 0;
+  $('reel').dataset.kind = 'coach'; $('reel').style.removeProperty('--kc');
+  $('reel').classList.add('show'); document.body.style.overflow = 'hidden'; $('reel-segs').innerHTML = '';
+  $('reel-body').innerHTML = '<div class="face" style="justify-content:flex-start"><span class="kind-chip">' + esc(title) + '</span>' +
+    '<p class="quick-sub" style="margin-top:12px">Copying did not work automatically here. The text is selected below, so press copy (Ctrl+C, or long-press on a phone).</p>' +
+    '<textarea class="input coach-text" id="coach-text" readonly></textarea></div>' +
+    '<button class="quick-go" id="coach-retry">Try copy again</button><button class="quick-ghost" id="coach-close2">Close</button>';
+  const ta = $('coach-text'); ta.value = text; setTimeout(() => { ta.focus(); ta.select(); }, 50);
+  $('coach-retry').onclick = () => { ta.select(); try{ if(document.execCommand('copy')) toast('Copied'); }catch(e){} };
+  $('coach-close2').onclick = closeReel;
+}
+function copyText(text, okMsg, title){
+  const legacy = () => {
+    try{
+      const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly','');
+      ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy'); ta.remove(); return ok;
+    }catch(e){ return false; }
+  };
+  const fail = () => { if(legacy()) toast(okMsg); else showTextFallback(text, title || 'Copy this'); };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(() => toast(okMsg)).catch(fail);
+  }else fail();
+}
+function copyCoach(){ copyText(coachSummary(), 'Summary copied. Paste it to your coach', 'Copy for coach'); }
+
+/* ---------- Learn ---------- */
+const LESSONS = [
+  { ico:'⏸️', c:'--amber', title:'Pause lines', desc:'Buy two seconds when your mind goes blank',
+    body:'<p>When you blank, your brain is hunting for the perfect answer. A pause line gives it a moment, and to the other person it just sounds thoughtful.</p><div class="step-quote">"Hmm, good question." "Let me think about that for a sec."</div><ul><li>Pick one or two and make them yours.</li><li>Say them out loud a few times a day so they come out on autopilot.</li></ul>', drill:'freeze' },
+  { ico:'🔁', c:'--rose', title:'The echo move', desc:'Repeat their last word as a question',
+    body:'<p>If your mind is empty, you do not need anything new. Take a word or phrase from their last sentence and hand it back as a question.</p><div class="step-quote">"I just got back from a road trip." "A road trip? Where did you go?"</div><ul><li>It shows you were listening.</li><li>It gets them talking, which gives you time to think.</li></ul>', drill:'freeze' },
+  { ico:'3️⃣', c:'--teal', title:'One thought, three beats', desc:'What happened, why it mattered, question back',
+    body:'<p>When it is your turn to share, use three short parts so you always know what comes next.</p><div class="step-quote">"I tried a new dosa place on Saturday. It reminded me of home. Have you been anywhere good lately?"</div><ul><li>Keep each beat to one sentence.</li><li>The question at the end passes the conversation back.</li></ul>', drill:'beats' },
+  { ico:'📰', c:'--blue', title:'Headline first', desc:'Say the one-sentence version before details',
+    body:'<p>Start with the main point, then add details. If you blank halfway through, people already know what you mean.</p><div class="step-quote">"Basically, the report is late because the data came in wrong."</div><ul><li>Headline, then one detail, then an example.</li><li>Stop when the point is made. Short is fine.</li></ul>', drill:'explain' },
+  { ico:'🧩', c:'--violet', title:'Describe around the word', desc:'Stop hunting for the exact word',
+    body:'<p>Losing a word happens to everyone, and it gets worse when you hunt for it. Describe it instead and keep going. People often fill in the gap for you.</p><div class="step-quote">"The thing that tracks all the tasks... the board."</div><ul><li>Say what it does, who uses it, or what it looks like.</li><li>Simple words beat perfect words.</li></ul>', drill:'taboo' },
+  { ico:'💡', c:'--gold', title:'Use an example', desc:'Often faster than the technical word',
+    body:'<p>An example carries meaning even when the right word will not come.</p><div class="step-quote">"Like last week when the server went down."</div><ul><li>Keep one or two go-to examples from your own work ready.</li></ul>', drill:'explain' },
+  { ico:'📝', c:'--teal', title:'Friend topic notes', desc:'Read 10 seconds before you call or text',
+    body:'<p>When you do not talk to someone often, there is no recent thread to pick up. A tiny note fixes that.</p><div class="step-quote">"Hey, how did that interview go?"</div><ul><li>One or two things they mentioned last time.</li><li>Two or three things from your own week to share.</li><li>Update the note after you talk.</li></ul>', tab:'friends' },
+  { ico:'🎯', c:'--amber', title:'Prepare one point', desc:'Before a meeting or a coffee chat',
+    body:'<p>Before a work conversation, decide on one point or question you want to bring up. Having just one ready makes it much easier to speak, and you usually find more to say once you have started.</p><ul><li>Write it in the "Before your next work chat" box on Today.</li><li>Easy openers: their weekend, a project they are on, lunch plans.</li></ul>', tab:'today' }
+];
+function renderLearn(){
+  $('learn-list').innerHTML = LESSONS.map((l,i) =>
+    '<details class="learn-card" style="--tag-color:var(' + l.c + ')"><summary><span class="learn-ico">' + l.ico + '</span>' +
+    '<span class="learn-main"><span class="learn-title">' + esc(l.title) + '</span><span class="learn-desc">' + esc(l.desc) + '</span></span><span class="learn-arrow">&#8250;</span></summary>' +
+    '<div class="learn-body">' + l.body + '<button class="ghost-btn" data-try="' + i + '">Try it now</button></div></details>').join('');
+  $('learn-list').querySelectorAll('[data-try]').forEach(b => b.onclick = () => {
+    const l = LESSONS[+b.dataset.try];
+    if(l.drill === 'beats'){ showTab('drills'); $('beats-card').scrollIntoView({behavior:'smooth'}); }
+    else if(l.drill) startReel(l.drill);
+    else showTab(l.tab);
+  });
+}
+
+/* ---------- Tabs ---------- */
+function showTab(name){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.dataset.tab === name));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  window.scrollTo({top:0});
+  save('tab', name);
+}
+
+function renderAll(){ renderStats(); renderLog(); renderPicks(); }
+</script>
+<script>
+/* ---------- Sync to coach (optional webhook with outbox) ---------- */
+const OUTBOX_MAX = 300;
+let flushing = false;
+function syncOn(){ return !!(S.sync && S.sync.url && S.sync.url.trim()); }
+function setSyncInfo(state, msg){
+  S.syncInfo = { state, msg:msg || '', at:Date.now() }; save('syncInfo', S.syncInfo); renderSyncStatus();
+}
+function syncLabel(){
+  if(!syncOn()) return { cls:'', short:'Sync off', long:'Sync off. Add a webhook URL to turn it on.' };
+  const n = S.outbox.length;
+  if(S.syncInfo.state === 'failed') return { cls:'failed', short:'Sync failed' + (n ? ' · ' + n : ''), long:'Failed: ' + (S.syncInfo.msg || 'unknown error') + (n ? '. ' + n + ' waiting, will retry on the next rep or page load.' : '') };
+  if(n) return { cls:'pending', short:'Pending ' + n, long:'Pending ' + n + (n === 1 ? ' rep' : ' reps') + ', sending...' };
+  if(S.syncInfo.state === 'synced') return { cls:'ok', short:'Synced', long:'Synced' + (S.syncInfo.at ? ' at ' + new Date(S.syncInfo.at).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}) : '') + (S.syncInfo.msg ? '. ' + S.syncInfo.msg : '') };
+  return { cls:'ok', short:'Sync on', long:'Sync on. Nothing sent yet.' };
+}
+function renderSyncStatus(){
+  const l = syncLabel();
+  const dot = $('gear-dot'); if(dot) dot.className = 'sdot ' + l.cls;
+  const gb = $('gear-btn'); if(gb) gb.setAttribute('aria-label', 'Sync to coach settings. ' + l.short);
+  const gt = $('gear-txt'); if(gt) gt.textContent = l.short;
+  const ss = $('sync-status'); if(ss) ss.textContent = 'Saved on this device only (browser storage) · ' + l.short;
+  const box = $('s-status'); if(box) box.innerHTML = '<b>Status</b><br>' + esc(l.long);
+}
+function syncHeaders(){
+  const h = { 'Content-Type':'application/json' };
+  const key = (S.sync.key || '').trim();
+  if(key){
+    const name = (S.sync.header || '').trim() || 'Authorization';
+    h[name] = S.sync.raw ? key : 'Bearer ' + key;
+  }
+  return h;
+}
+function urlProblem(u){
+  let x; try{ x = new URL(u); }catch(e){ return 'Webhook URL is not a full web address. It should start with https://'; }
+  if(x.protocol !== 'https:' && x.protocol !== 'http:') return 'Webhook URL must start with https:// or http://';
+  return '';
+}
+function headerProblem(){
+  const name = (S.sync.header || '').trim() || 'Authorization';
+  if(!/^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/.test(name)) return 'Key header name can only use letters, numbers and dashes';
+  if(/[^\x20-\x7e]/.test(S.sync.key || '')) return 'Sender key has characters that cannot be sent in a header (like emoji or accents)';
+  return '';
+}
+async function postJSON(body){
+  const prob = urlProblem(S.sync.url.trim()) || headerProblem();
+  if(prob) throw new Error(prob);
+  const ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  const to = setTimeout(() => { try{ ctrl && ctrl.abort(); }catch(e){} }, 15000);
+  try{
+    const res = await fetch(S.sync.url.trim(), { method:'POST', headers:syncHeaders(), body:JSON.stringify(body), signal:ctrl ? ctrl.signal : undefined });
+    if(!res.ok) throw new Error('HTTP ' + res.status + (res.statusText ? ' ' + res.statusText : ''));
+    return true;
+  }catch(e){
+    const m = e && e.name === 'AbortError' ? 'Timed out after 15s' : (e && e.message ? e.message : String(e));
+    throw new Error(m === 'Failed to fetch' ? 'Network or CORS error (Failed to fetch)' : m);
+  }finally{ clearTimeout(to); }
+}
+function repPayload(rep){
+  return {
+    type:'rep',
+    sentAt:new Date().toISOString(),
+    rep:{ date:new Date(rep.t).toISOString(), drill:rep.kind, prompt:rep.prompt, rating:rep.rating, note:rep.note || '' },
+    stats:statsNow()
+  };
+}
+function queueSync(rep){
+  try{
+    if(!syncOn()){ renderSyncStatus(); return; }
+    S.outbox.push(repPayload(rep));
+    if(S.outbox.length > OUTBOX_MAX) S.outbox = S.outbox.slice(-OUTBOX_MAX);
+    save('outbox', S.outbox);
+    flushOutbox();
+  }catch(e){ /* sync must never break the app */ }
+}
+async function flushOutbox(){
+  if(flushing) return;
+  if(!syncOn()){ renderSyncStatus(); return; }
+  if(!S.outbox.length){ renderSyncStatus(); return; }
+  flushing = true; renderSyncStatus();
+  try{
+    while(S.outbox.length && syncOn()){
+      const item = S.outbox[0];
+      item.sentAt = new Date().toISOString();
+      await postJSON(item);
+      S.outbox.shift(); save('outbox', S.outbox);
+      setSyncInfo('synced', '');
+    }
+  }catch(e){
+    setSyncInfo('failed', e.message);
+  }finally{ flushing = false; renderSyncStatus(); }
+}
+function openSettings(){
+  $('s-url').value = S.sync.url || '';
+  $('s-key').value = S.sync.key || '';
+  $('s-header').value = S.sync.header || 'Authorization';
+  $('s-raw').checked = !!S.sync.raw;
+  renderSyncStatus();
+  $('settings').classList.add('show'); document.body.style.overflow = 'hidden';
+}
+function readSettings(){
+  S.sync = { url:$('s-url').value.trim(), key:$('s-key').value.trim(), header:$('s-header').value.trim() || 'Authorization', raw:$('s-raw').checked };
+  save('sync', S.sync);
+}
+function initSettings(){
+  $('gear-btn').onclick = openSettings;
+  $('settings-close').onclick = () => { $('settings').classList.remove('show'); if(!$('reel').classList.contains('show')) document.body.style.overflow = ''; };
+  ['s-url','s-key','s-header'].forEach(id => $(id).addEventListener('keydown', e => { if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); $('s-save').click(); } }));
+  $('settings').addEventListener('click', e => { if(e.target.id === 'settings') $('settings-close').click(); });
+  $('s-save').onclick = () => {
+    readSettings();
+    if(syncOn() && S.syncInfo.state === 'off') setSyncInfo('idle', '');
+    if(!syncOn()) setSyncInfo('off', '');
+    const prob = syncOn() ? (urlProblem(S.sync.url) || headerProblem()) : '';
+    if(prob) setSyncInfo('failed', prob);
+    toast(prob ? 'Saved, but check the settings' : syncOn() ? 'Sync settings saved' : 'Sync off');
+    flushOutbox();
+  };
+  let testing = false;
+  $('s-test').onclick = async () => {
+    if(testing) return; testing = true;
+    readSettings();
+    if(!syncOn()){ testing = false; setSyncInfo('off',''); toast('Add a webhook URL first'); return; }
+    $('s-status').innerHTML = '<b>Status</b><br>Sending test...';
+    try{
+      await postJSON({ type:'test', sentAt:new Date().toISOString(), message:'Test from Reps practice', stats:statsNow() });
+      setSyncInfo('synced', 'Test sent OK');
+      toast('Test sent');
+      flushOutbox();
+    }catch(e){ setSyncInfo('failed', 'Test failed: ' + e.message); }
+    finally{ testing = false; }
+  };
+  $('s-retry').onclick = () => { readSettings(); flushOutbox(); };
+  $('s-clear').onclick = () => {
+    if(!S.outbox.length){ toast('Outbox is empty'); return; }
+    if(!confirm('Drop ' + S.outbox.length + ' unsent reps from the outbox? They stay in your log.')) return;
+    S.outbox = []; save('outbox', S.outbox); renderSyncStatus();
+  };
+}
+
+/* ---------- Init ---------- */
+let lastDay = null;
+function checkDay(){
+  const d = dayKey();
+  if(lastDay && d !== lastDay){ renderAll(); renderFriends(); renderMine(); }
+  lastDay = d;
+}
+function init(){
+  loadState();
+  lastDay = dayKey();
+  document.querySelectorAll('.tab-btn').forEach(b => b.onclick = () => showTab(b.dataset.tab));
+  document.querySelectorAll('[data-start]').forEach(b => b.onclick = () => startReel(b.dataset.start));
+  $('hero-freeze').onclick = () => startReel('freeze');
+  $('hero-coach').onclick = copyCoach;
+  $('log-coach').onclick = copyCoach;
+  $('reel-close').onclick = closeReel;
+  $('reel-sound').onclick = () => { S.sound = !S.sound; save('sound', S.sound); $('reel-sound').innerHTML = S.sound ? '&#128266;' : '&#128263;'; $('reel-sound').setAttribute('aria-pressed', String(S.sound)); $('reel-sound').setAttribute('aria-label', S.sound ? 'Sound on' : 'Sound off'); };
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape'){
+      if($('settings').classList.contains('show')) $('settings-close').click();
+      else if($('reel').classList.contains('show')) closeReel();
+    }
+  });
+  renderPause(); initPrep(); initBeats(); initFriends(); initLog(); initSettings();
+  renderFriends(); renderMine(); renderLearn(); renderAll(); renderSyncStatus();
+  const t = load('tab', 'today'); if(t && $('tab-' + t)) showTab(t);
+  try{ flushOutbox(); }catch(e){}
+  window.addEventListener('online', () => { try{ flushOutbox(); }catch(e){} });
+  setInterval(checkDay, 30000);
+  document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'visible'){ checkDay(); try{ flushOutbox(); }catch(e){} } });
+}
+try{ init(); }
+catch(err){
+  console.warn('Reps failed to start', err);
+  const w = document.querySelector('.wrap');
+  if(w) w.insertAdjacentHTML('afterbegin', '<div class="potd-card" style="border-color:var(--rose)"><p class="potd-eyebrow" style="color:var(--rose)">Something went wrong loading your saved data</p><p class="potd-sub">You can reset the saved data on this device and start fresh.</p><button class="ghost-btn danger" id="hard-reset">Reset saved data</button></div>');
+  const hr = document.getElementById('hard-reset');
+  if(hr) hr.onclick = () => { if(!confirm('Erase all saved reps, friends and settings on this device?')) return; try{ Object.keys(localStorage).filter(k => k.indexOf(PREFIX) === 0).forEach(k => localStorage.removeItem(k)); }catch(e){} location.reload(); };
+}
+</script>
+</body>
+</html>
