@@ -216,6 +216,11 @@
   #reel[data-kind="taboo"]{--kc:var(--violet);--kc-glow:rgba(179,157,219,.34);--kc-glow2:rgba(255,111,145,.11);}
   #reel[data-kind="real"]{--kc:var(--gold);--kc-glow:rgba(255,194,103,.28);--kc-glow2:rgba(179,157,219,.12);}
   #reel[data-kind="coach"]{--kc:var(--gold);--kc-glow:rgba(255,194,103,.28);--kc-glow2:rgba(92,224,168,.12);}
+  #reel[data-kind="Voice lock"]{--kc:var(--rose);--kc-glow:rgba(255,111,145,.32);--kc-glow2:rgba(255,194,103,.12);}
+  #reel[data-kind="Rapid fire"]{--kc:var(--amber);--kc-glow:rgba(255,122,89,.32);--kc-glow2:rgba(255,194,103,.12);}
+  #reel[data-kind="Random word story"]{--kc:var(--violet);--kc-glow:rgba(179,157,219,.34);--kc-glow2:rgba(111,195,224,.12);}
+  #reel[data-kind="Quick opinion"]{--kc:var(--blue);--kc-glow:rgba(111,195,224,.30);--kc-glow2:rgba(92,224,168,.12);}
+  #reel[data-kind="Keep it going"]{--kc:var(--gold);--kc-glow:rgba(255,194,103,.28);--kc-glow2:rgba(92,224,168,.12);}
   .reel-card{max-width:560px;width:100%;margin:0 auto;display:flex;flex-direction:column;min-height:100%;
     padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(22px + env(safe-area-inset-bottom,0px));}
   .reel-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
@@ -255,6 +260,25 @@
   .ring-num small{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
   .remind{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--kc);border-radius:4px 10px 10px 4px;padding:12px 14px;font-size:14.5px;line-height:1.5;margin:0 0 14px;}
   .remind b{color:var(--kc);}
+  .breath-orb{
+    width:min(190px,56vw);height:min(190px,56vw);border-radius:50%;margin:18px auto 8px;
+    background:radial-gradient(circle at 38% 32%, #ffd0db, var(--kc) 58%, #4a1f30);
+    box-shadow:0 0 42px var(--kc-glow);animation:exhale 3s ease-in forwards;
+  }
+  @keyframes exhale{0%{transform:scale(1.1);}100%{transform:scale(.52);}}
+  .breath-label{font-family:var(--serif);font-weight:600;font-size:28px;margin:0;text-align:center;}
+  .starter-btn{
+    display:block;width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--line);color:var(--text);
+    border-radius:12px;padding:12px 14px;margin:0 0 8px;cursor:pointer;font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.25;
+  }
+  .starter-btn small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:3px;}
+  .starter-btn.suggested{border-color:var(--kc);box-shadow:0 0 0 3px var(--kc-glow);}
+  .starter-btn.suggested small{color:var(--kc);}
+  .starter-btn:active{transform:scale(.98);}
+  .drop-chip{background:var(--surface);border:1.5px solid var(--kc);border-radius:12px;padding:10px 12px;margin:0 0 12px;animation:reelIn .35s ease;}
+  .drop-chip b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--kc);font-weight:500;margin-bottom:2px;}
+  .drop-chip span{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.25;}
+  .missions>.section-label{grid-column:1 / -1;}
   .rate-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0 14px;}
   .rate-btn{background:var(--surface);border:1.5px solid var(--line);color:var(--text);border-radius:12px;padding:14px 4px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform .12s ease,border-color .12s ease;}
   .rate-btn b{font-family:var(--mono);font-size:22px;}
@@ -393,6 +417,43 @@
         <button class="complete-btn" data-start="real">Log a real chat</button>
         <p class="mini-count" id="cnt-real"></p>
       </div>
+      <p class="section-label">Voice lock</p>
+      <div class="card wide" style="--tag-color:var(--rose);--tag-bg:var(--rose-dark);">
+        <span class="tag">Voice lock</span>
+        <p class="task-text">You know the words. They will not come out.</p>
+        <p class="task-sub">Breathe out, pick a starter word, then say a greeting plus one ready line. A coworker at coffee, a friend you have not seen in a week, or someone in the hallway.</p>
+        <button class="complete-btn" data-start="Voice lock">Start voice lock</button>
+        <p class="mini-count" id="cnt-voicelock"></p>
+      </div>
+      <p class="section-label">Think fast</p>
+      <div class="card" style="--tag-color:var(--amber);--tag-bg:var(--amber-dark);">
+        <span class="tag">Rapid fire</span>
+        <p class="task-text">Answer easy questions the moment they show up.</p>
+        <p class="task-sub">8 questions, 8 seconds each, about a minute. Say your answer out loud right away. The next one starts on its own.</p>
+        <button class="complete-btn" data-start="Rapid fire">Start rapid fire</button>
+        <p class="mini-count" id="cnt-rapid"></p>
+      </div>
+      <div class="card" style="--tag-color:var(--violet);--tag-bg:var(--violet-dark);">
+        <span class="tag">Random word story</span>
+        <p class="task-text">Talk about a random word. No prep.</p>
+        <p class="task-sub">30 seconds on one everyday word. At 15 seconds a second word drops in, and you work it in.</p>
+        <button class="complete-btn" data-start="Random word story">Start word story</button>
+        <p class="mini-count" id="cnt-wordstory"></p>
+      </div>
+      <div class="card" style="--tag-color:var(--blue);--tag-bg:var(--blue-dark);">
+        <span class="tag">Quick opinion</span>
+        <p class="task-text">Headline first, then one reason.</p>
+        <p class="task-sub">A light either-or, or a what-do-you-think prompt. One line for the answer, then one reason. 20 seconds, 3 in a row.</p>
+        <button class="complete-btn" data-start="Quick opinion">Start quick opinion</button>
+        <p class="mini-count" id="cnt-opinion"></p>
+      </div>
+      <div class="card" style="--tag-color:var(--gold);--tag-bg:var(--gold-dark);">
+        <span class="tag">Keep it going</span>
+        <p class="task-text">Reply before the silence gets weird.</p>
+        <p class="task-sub">A coworker says a line. You have 5 seconds to echo it or ask a follow-up. 5 rounds.</p>
+        <button class="complete-btn" data-start="Keep it going">Start keep it going</button>
+        <p class="mini-count" id="cnt-keepgoing"></p>
+      </div>
       <div class="card wide" id="beats-card" style="--tag-color:var(--teal);--tag-bg:var(--teal-dark);">
         <span class="tag">Three beats builder</span>
         <p class="beats-prompt" id="beats-prompt"></p>
@@ -518,11 +579,13 @@
    - explain: topic strings
    - taboo: [word, [banned words]]
    - beats: prompts for the three beats builder
+   - voiceLines: second lines for Voice lock (greeting comes from the scenario)
+   - rapid / storyWords / opinions / keepLines: think-fast banks
    - pauseLines / echoTips: shown as reminders
    - timers: seconds per drill
    ===================================================================== */
 const CONFIG = {
-  timers: { countdown: 3, freeze: 30, explain: 60, taboo: 45 },
+  timers: { countdown: 3, quick: 2, breath: 3, freeze: 30, explain: 60, taboo: 45, 'Voice lock': 20, 'Random word story': 30, 'Quick opinion': 20, rapidEach: 8, rapidRounds: 8, keepEach: 5, keepRounds: 5 },
   repsPerSession: 5,
   dailyGoal: 3,
 
@@ -712,6 +775,158 @@ const CONFIG = {
     "Keep talking. A messy description is still a win."
   ],
 
+  starters: [
+    "So...",
+    "Yeah, so...",
+    "Okay, the thing is...",
+    "Oh, I was gonna ask you..."
+  ],
+
+  voiceScenarios: [
+    { label: "Coworker at the coffee machine", greeting: "Hey, good morning." },
+    { label: "A friend you have not seen in a week", greeting: "Hey, it's been a minute." },
+    { label: "Someone in the hallway", greeting: "Hey, got a second?" }
+  ],
+
+  voiceLines: [
+    "How's your week been?",
+    "What's your go-to here?",
+    "How's your day going so far?",
+    "Did you do anything fun this weekend?",
+    "What's been keeping you busy?",
+    "How's the project going?",
+    "Tried anything new for lunch lately?",
+    "What are you working on this week?",
+    "How was your weekend?",
+    "Any plans after work?",
+    "What's the best part of your week so far?",
+    "Seen anything good lately?",
+    "What do you usually get here?",
+    "How long have you been around here?",
+    "What's one thing you're looking forward to?",
+    "How did that last meeting go?",
+    "Are you slammed this week, or is it pretty calm?",
+    "What have you been watching?",
+    "How's your morning been?",
+    "Got any trips coming up?",
+    "What's been the highlight of your week?",
+    "How do you usually spend your weekends?",
+    "Anything I can help with today?",
+    "What's new with you?",
+    "How's the new work treating you?",
+    "What's your favorite spot around here?",
+    "How have you been, really?",
+    "Want to grab lunch sometime this week?",
+    "What are you heading to next?",
+    "Did you get outside at all this week?"
+  ],
+
+  rapid: [
+    "Best thing you ate this week?",
+    "Weekend plans?",
+    "Coffee or tea?",
+    "One word for your day so far?",
+    "Last song stuck in your head?",
+    "What's for lunch today?",
+    "Morning person or night person?",
+    "Last thing you laughed at?",
+    "One app you open every day?",
+    "Beach or mountains?",
+    "What did you have for breakfast?",
+    "A show you are watching right now?",
+    "Sweet or savory?",
+    "Desk snack of choice?",
+    "Early meeting or late meeting?",
+    "One thing on your desk right now?",
+    "Walk, bus, or car today?",
+    "Favorite day of the week?",
+    "Headphones on or off while you work?",
+    "Rainy day plan?",
+    "One person you like running into?",
+    "Best part of yesterday?",
+    "What are you looking forward to today?",
+    "Window seat or aisle seat?",
+    "Chat or email for a quick question?",
+    "Last place you walked to?",
+    "One small win from this week?",
+    "Tea with sugar or without?",
+    "What is the weather doing to your mood?",
+    "A food you could eat every week?"
+  ],
+
+  storyWords: [
+    "coffee", "monday", "inbox", "lunch", "commute", "meeting", "umbrella", "playlist",
+    "elevator", "snack", "calendar", "hallway", "weekend", "charger", "rain", "notebook",
+    "keyboard", "bus", "deadline", "headphones", "pizza", "whiteboard", "backpack", "couch",
+    "tea", "traffic", "birthday", "recipe", "sandwich", "train"
+  ],
+
+  opinions: [
+    "What do you think about meetings before 9?",
+    "Work from a cafe, or stay at your desk?",
+    "Is a short meeting better than a long email?",
+    "What do you think about reply-all?",
+    "Lunch at your desk, or away from it?",
+    "What do you think about cameras on for every call?",
+    "Group chat, or a one-on-one message?",
+    "What do you think about small talk before a meeting?",
+    "Plan the weekend, or leave it open?",
+    "What do you think about a cafe work session once a week?",
+    "Morning check-in, or end-of-day check-in?",
+    "What do you think about celebrating small wins?",
+    "Text a friend, or call them?",
+    "What do you think about a message that only says quick question?",
+    "Shared playlist at work, or a quiet room?",
+    "What do you think about taking a real lunch break?",
+    "One big task, or a bunch of small ones?",
+    "What do you think about Friday afternoon meetings?",
+    "Open office, or a quiet corner?",
+    "What do you think about a voice note instead of a text?",
+    "A packed calendar, or a loose to-do list?",
+    "What do you think about team lunches?",
+    "Walk and talk, or sit and talk?",
+    "What do you think about starting a meeting with a check-in?",
+    "Reply right away, or wait until you have a real answer?",
+    "What do you think about saying let's circle back?",
+    "Cook at home, or eat out on a Wednesday?",
+    "What do you think about leaving work on time?",
+    "Sweet snack or salty snack around 3?",
+    "What do you think about a walking meeting?"
+  ],
+
+  keepLines: [
+    "I just got back from a trip.",
+    "This week has been a lot.",
+    "I finally finished that deck.",
+    "I'm trying a new lunch spot.",
+    "The client call went better than I thought.",
+    "I was up late finishing this.",
+    "I'm thinking of taking Friday off.",
+    "Have you seen the new snacks in the kitchen?",
+    "My train was late again.",
+    "I started a new show last night.",
+    "That meeting could have been an email.",
+    "I'm learning to cook one new thing a week.",
+    "The demo crashed on me.",
+    "I might move closer to the office.",
+    "We should grab coffee sometime.",
+    "I got stuck on this for an hour.",
+    "My weekend was way too short.",
+    "I'm excited about the new project.",
+    "I forgot my lunch at home.",
+    "The weather is finally nice.",
+    "I ran into an old teammate yesterday.",
+    "I'm not sure this plan is going to work.",
+    "I tried that ramen place.",
+    "I need a break after this call.",
+    "A friend of mine is visiting this weekend.",
+    "I switched teams last month.",
+    "This report is taking forever.",
+    "I walked here today.",
+    "I have no idea what to get for lunch.",
+    "We hit the deadline. Barely."
+  ],
+
   ratings: ["Froze", "Rough", "Okay", "Smooth", "Flowed"]
 };
 </script>
@@ -771,7 +986,12 @@ const KINDS = {
   taboo:   { label:'Taboo word',   color:'var(--violet)', ico:'🚫' },
   beats:   { label:'Three beats',  color:'var(--teal)',  ico:'3️⃣' },
   friend:  { label:'Friend check-in', color:'var(--rose)', ico:'🤝' },
-  real:    { label:'Real chat',    color:'var(--gold)',  ico:'🌱' }
+  real:    { label:'Real chat',    color:'var(--gold)',  ico:'🌱' },
+  'Voice lock':        { label:'Voice lock',        slug:'voicelock', color:'var(--rose)',   ico:'🌬️' },
+  'Rapid fire':        { label:'Rapid fire',        slug:'rapid',     color:'var(--amber)',  ico:'⚡' },
+  'Random word story': { label:'Random word story', slug:'wordstory', color:'var(--violet)', ico:'🔤' },
+  'Quick opinion':     { label:'Quick opinion',     slug:'opinion',   color:'var(--blue)',   ico:'💬' },
+  'Keep it going':     { label:'Keep it going',     slug:'keepgoing', color:'var(--gold)',   ico:'🔁' }
 };
 
 /* ---------- Helpers ---------- */
@@ -852,8 +1072,8 @@ function renderStats(){
   }
   html += '</div><span class="week-count">' + on + '/7 days this week · goal ' + CONFIG.dailyGoal + ' reps a day</span>';
   $('week-row').innerHTML = html;
-  ['freeze','explain','taboo','real','beats'].forEach(k => {
-    const el = $('cnt-' + k); if(!el) return;
+  Object.keys(KINDS).forEach(k => {
+    const el = $('cnt-' + (KINDS[k].slug || k)); if(!el) return;
     const all = S.reps.filter(r => r.kind === k); const a2 = avg(all);
     el.textContent = all.length ? (all.length + ' done · avg smoothness ' + (a2 ? a2.toFixed(1) : '-')) : 'No reps yet';
   });
@@ -920,7 +1140,14 @@ function buildQueue(kind){
   if(kind === 'freeze') return shuffle(CONFIG.freeze).slice(0, CONFIG.repsPerSession);
   if(kind === 'explain') return shuffle(CONFIG.explain).slice(0, 3);
   if(kind === 'taboo') return shuffle(CONFIG.taboo).slice(0, CONFIG.repsPerSession);
+  if(kind === 'Quick opinion') return shuffle(CONFIG.opinions).slice(0, 3);
   return [null];
+}
+function countdownSecs(){ return R.kind === 'Quick opinion' ? CONFIG.timers.quick : CONFIG.timers.countdown; }
+function countdownLabel(){
+  const parts = [];
+  for(let i = countdownSecs(); i >= 1; i--) parts.push(String(i));
+  return parts.join(', ');
 }
 function startReel(kind){
   stopTimer();
@@ -929,7 +1156,12 @@ function startReel(kind){
   $('reel').dataset.kind = kind; $('reel').classList.add('show');
   document.body.style.overflow = 'hidden';
   $('reel-sound').innerHTML = S.sound ? '&#128266;' : '&#128263;';
-  if(kind === 'real') renderRate('A real conversation'); else renderReady();
+  if(kind === 'real') renderRate('A real conversation');
+  else if(kind === 'Voice lock') beginVoice();
+  else if(kind === 'Rapid fire') beginRapid();
+  else if(kind === 'Random word story') beginWordStory();
+  else if(kind === 'Keep it going') beginKeep();
+  else renderReady();
 }
 function closeReel(){
   stopTimer();
@@ -942,7 +1174,7 @@ function renderSegs(){
 }
 function promptText(item){
   if(R.kind === 'freeze') return item[0];
-  if(R.kind === 'explain') return item;
+  if(R.kind === 'explain' || R.kind === 'Quick opinion') return item;
   if(R.kind === 'taboo') return item[0];
   return '';
 }
@@ -968,6 +1200,13 @@ function readyHTML(item){
       '<button class="quick-link" id="help-btn">Show the shape</button><div class="helpbox" id="helpbox">' +
       '<b>1. Headline:</b> "Basically, ..."<br><b>2. Detail:</b> "The main thing is ..."<br><b>3. Example:</b> "Like last week when ..."</div>';
   }
+  if(R.kind === 'Quick opinion'){
+    return '<span class="kind-chip">Quick opinion</span><p class="who">Headline first</p>' +
+      '<p class="quick-text">' + esc(item) + '</p>' +
+      '<p class="quick-sub">One line for your answer, then one reason. Say the answer before you explain it.</p>' +
+      '<button class="quick-link" id="help-btn">Need a starter?</button><div class="helpbox" id="helpbox">' +
+      '<b>Try:</b> "Good question, hmm." Then your answer in one line. Then one reason.</div>';
+  }
   return '<span class="kind-chip">Taboo word</span><p class="who">Describe this without saying it</p>' +
     '<p class="quick-text">' + esc(item[0]) + '</p>' +
     '<p class="quick-sub">Also off limits:</p><div class="banned">' + item[1].map(w => '<span>' + esc(w) + '</span>').join('') + '</div>' +
@@ -977,13 +1216,13 @@ function renderReady(){
   renderSegs();
   const item = R.queue[R.idx]; R.current = item;
   $('reel-body').innerHTML = '<div class="face">' + readyHTML(item) + '</div>' +
-    '<button class="quick-go" id="go-btn">Start ' + CONFIG.timers.countdown + ', 2, 1</button>' +
+    '<button class="quick-go" id="go-btn">Start ' + countdownLabel() + '</button>' +
     '<button class="quick-skip" id="skip-btn">Skip this one</button>';
   $('help-btn').onclick = () => $('helpbox').classList.toggle('show');
   $('go-btn').onclick = renderCount;
   $('skip-btn').onclick = () => {
     logSkip(R.kind, promptText(item));
-    const pool = R.kind === 'freeze' ? CONFIG.freeze : R.kind === 'explain' ? CONFIG.explain : CONFIG.taboo;
+    const pool = R.kind === 'freeze' ? CONFIG.freeze : R.kind === 'explain' ? CONFIG.explain : R.kind === 'Quick opinion' ? CONFIG.opinions : CONFIG.taboo;
     let next = pick(pool), guard = 0;
     while(R.queue.indexOf(next) !== -1 && guard++ < 20) next = pick(pool);
     R.queue[R.idx] = next; renderReady();
@@ -993,8 +1232,8 @@ function stopTimer(){ if(R.timer){ clearInterval(R.timer); R.timer = null; } R.t
 function renderCount(){
   stopTimer();
   const token = R.token;
-  const end = Date.now() + CONFIG.timers.countdown * 1000;
-  let n = CONFIG.timers.countdown;
+  const end = Date.now() + countdownSecs() * 1000;
+  let n = countdownSecs();
   const item = R.current;
   const show = () => {
     $('reel-body').innerHTML = '<div class="face" style="justify-content:center;text-align:center">' +
@@ -1019,6 +1258,7 @@ function renderTalk(){
   const remind = R.kind === 'freeze'
     ? (item[1] === 'share' ? '<b>Echo it:</b> repeat a word they said as a question.' : '<b>Open with:</b> "' + esc(pick(CONFIG.pauseLines)) + '"')
     : R.kind === 'explain' ? '<b>Headline first.</b> ' + esc(pick(CONFIG.explainTips.slice(1)))
+    : R.kind === 'Quick opinion' ? '<b>Headline first.</b> One line for your answer, then one reason.'
     : '<b>Talk around it.</b> ' + esc(pick(CONFIG.tabooTips));
   $('reel-body').innerHTML = '<div class="face" style="justify-content:flex-start">' +
     '<span class="kind-chip">Talk now</span>' +
@@ -1085,16 +1325,285 @@ function renderRate(prompt){
 }
 function nextOrDone(){
   R.idx++;
-  if(['freeze','explain','taboo'].indexOf(R.kind) !== -1 && R.idx < R.queue.length){ renderReady(); return; }
+  if(['freeze','explain','taboo','Quick opinion'].indexOf(R.kind) !== -1 && R.idx < R.queue.length){ renderReady(); return; }
   renderSegs();
   const n = todayCount();
+  const again = ['freeze','explain','taboo','Quick opinion','Voice lock','Rapid fire','Random word story','Keep it going'].indexOf(R.kind) !== -1;
   $('reel-body').innerHTML = '<div class="done-wrap"><span class="done-emoji">🎉</span><h3>Round done</h3>' +
     '<p>' + n + ' rep' + (n===1?'':'s') + ' today · streak ' + streak() + ' day' + (streak()===1?'':'s') + '</p>' +
     '<p>Every time you talk through the blank moment, the next one gets smaller.</p></div>' +
-    (['freeze','explain','taboo'].indexOf(R.kind) !== -1 ? '<button class="quick-go" id="again-btn">Another round</button>' : '') +
+    (again ? '<button class="quick-go" id="again-btn">Another round</button>' : '') +
     '<button class="quick-ghost" id="close-btn">Back to the app</button>';
   if($('again-btn')) $('again-btn').onclick = () => startReel(R.kind);
   $('close-btn').onclick = closeReel;
+}
+
+/* ---------- Voice lock and think-fast ---------- */
+function ringBlock(left, total){
+  const C = 2 * Math.PI * 80;
+  const off = C * (1 - (total ? left / total : 0));
+  return '<div class="ring-wrap"><svg viewBox="0 0 180 180"><circle class="ring-bg" cx="90" cy="90" r="80"/><circle class="ring-fg" id="ring" cx="90" cy="90" r="80" stroke-dasharray="' + C + '" stroke-dashoffset="' + off + '"/></svg>' +
+    '<div class="ring-num"><span id="ring-n">' + left + '</span><small>seconds</small></div></div>';
+}
+function quickLabel(){
+  const parts = [];
+  for(let i = CONFIG.timers.quick; i >= 1; i--) parts.push(String(i));
+  return parts.join(', ');
+}
+function renderQuickCount(msg, next){
+  stopTimer();
+  const token = R.token;
+  const total = CONFIG.timers.quick;
+  const end = Date.now() + total * 1000;
+  let n = total;
+  const show = () => {
+    $('reel-body').innerHTML = '<div class="face" style="justify-content:center;text-align:center">' +
+      '<p class="quick-text small">' + esc(msg) + '</p>' +
+      '<div class="count-big">' + n + '</div>' +
+      '<p class="quick-hint" style="text-align:center">No perfect answer. Start talking.</p></div>';
+    beep(520, .12);
+  };
+  show();
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    const left = Math.ceil((end - Date.now()) / 1000);
+    if(left <= 0){ stopTimer(); beep(880, .2); next(); }
+    else if(left !== n){ n = left; show(); }
+  }, 200);
+}
+function renderBreath(next){
+  stopTimer();
+  const token = R.token;
+  const total = CONFIG.timers.breath;
+  const end = Date.now() + total * 1000;
+  let n = total;
+  $('reel-body').innerHTML = '<div class="face" style="justify-content:center;text-align:center">' +
+    '<span class="kind-chip">Breathe out</span>' +
+    '<div class="breath-orb" style="animation-duration:' + total + 's"></div>' +
+    '<p class="breath-label">Let the air out</p>' +
+    '<div class="count-big" id="breath-n" style="font-size:72px;margin:6px 0">' + n + '</div>' +
+    '<p class="quick-hint" style="text-align:center">Empty the breath first. The words come after.</p></div>';
+  beep(400, .12);
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    const left = Math.ceil((end - Date.now()) / 1000);
+    if(left <= 0){ stopTimer(); beep(660, .16); next(); }
+    else if(left !== n){
+      n = left;
+      const el = $('breath-n'); if(el) el.textContent = String(n);
+      beep(400, .08);
+    }
+  }, 200);
+}
+function beginVoice(){
+  R.queue = [null]; R.idx = 0;
+  const scenario = pick(CONFIG.voiceScenarios);
+  R.voice = { label: scenario.label, greeting: scenario.greeting, line: pick(CONFIG.voiceLines), starter: '' };
+  renderSegs();
+  $('reel-body').innerHTML = '<div class="face">' +
+    '<span class="kind-chip">Voice lock</span>' +
+    '<p class="quick-text small">You know what to say. Your mouth will not start.</p>' +
+    '<p class="quick-sub">Three short steps. Breathe out, pick a starter word, then say a greeting and one ready line.</p>' +
+    '<div class="remind"><b>Today\'s scene:</b> ' + esc(R.voice.label) + '</div></div>' +
+    '<button class="quick-go" id="go-btn">Start with a breath</button>';
+  $('go-btn').onclick = () => renderBreath(renderStarter);
+}
+function renderStarter(){
+  const suggested = Math.floor(Math.random() * CONFIG.starters.length);
+  $('reel-body').innerHTML = '<div class="face">' +
+    '<span class="kind-chip">Starter word</span>' +
+    '<p class="quick-text small">Pick one and say it out loud.</p>' +
+    '<p class="quick-sub">Slow on the first 3 or 4 words. That is the key in the lock.</p>' +
+    CONFIG.starters.map((s, i) =>
+      '<button class="starter-btn' + (i === suggested ? ' suggested' : '') + '" data-i="' + i + '">' +
+      '<small>' + (i === suggested ? 'Try this one' : 'Starter') + '</small>' + esc(s) + '</button>').join('') +
+    '</div>';
+  document.querySelectorAll('.starter-btn').forEach(b => b.onclick = () => {
+    R.voice.starter = CONFIG.starters[+b.dataset.i];
+    renderVoiceTalk();
+  });
+}
+function renderVoiceTalk(){
+  stopTimer();
+  const token = R.token;
+  const total = CONFIG.timers['Voice lock'];
+  const start = Date.now();
+  const end = start + total * 1000;
+  let left = total;
+  const C = 2 * Math.PI * 80;
+  const v = R.voice;
+  const spoken = v.greeting + ' ' + v.line;
+  $('reel-body').innerHTML = '<div class="face" style="justify-content:flex-start">' +
+    '<span class="kind-chip">Say it out loud</span>' +
+    '<p class="who">' + esc(v.label) + '</p>' +
+    '<p class="quick-text small">' + esc(v.starter) + '</p>' +
+    '<p class="quick-sub" style="margin-bottom:4px">then</p>' +
+    '<p class="quick-text small">"' + esc(spoken) + '"</p>' +
+    ringBlock(left, total) +
+    '<div class="remind"><b>Slow start.</b> Starter word, then the greeting, then the question.</div></div>' +
+    '<button class="quick-go" id="talk-done">I\'m done</button>';
+  const finish = () => {
+    if(token !== R.token) return;
+    stopTimer();
+    R.secs = Math.min(total, Math.round((Date.now() - start) / 1000));
+    renderRate(v.label + ': ' + v.starter + ' ' + spoken);
+  };
+  $('talk-done').onclick = finish;
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    const l = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+    if(l !== left){
+      left = l;
+      const n = $('ring-n'), ring = $('ring');
+      if(n) n.textContent = String(l);
+      if(ring) ring.setAttribute('stroke-dashoffset', String(C * (1 - l / total)));
+    }
+    if(Date.now() >= end){ beep(440, .3); finish(); }
+  }, 200);
+}
+function beginRapid(){
+  R.queue = [null]; R.idx = 0; renderSegs();
+  $('reel-body').innerHTML = '<div class="face">' +
+    '<span class="kind-chip">Rapid fire</span>' +
+    '<p class="quick-text small">Easy questions. Answer out loud right away.</p>' +
+    '<p class="quick-sub">About a minute. Each question stays up for 8 seconds, then the next one starts. Tap Answered when the words are out, or let the timer roll. Tap Pass if you blank.</p></div>' +
+    '<button class="quick-go" id="go-btn">Start ' + quickLabel() + '</button>';
+  $('go-btn').onclick = () => {
+    R.stream = {
+      items: shuffle(CONFIG.rapid).slice(0, CONFIG.timers.rapidRounds),
+      seconds: CONFIG.timers.rapidEach,
+      i: 0, answered: 0, t0: 0, verb: 'Answered', doneNoun: 'Answered', countOnTimeout: true,
+      face: function(item, i, n, answered){
+        return '<div class="face" style="justify-content:flex-start"><span class="kind-chip">Rapid fire</span>' +
+          '<p class="who">Question ' + (i + 1) + ' of ' + n + ' · ' + answered + ' answered</p>' +
+          '<p class="quick-text">' + esc(item) + '</p>' +
+          '<p class="quick-hint">Say the first thing that comes to mind.</p>';
+      }
+    };
+    renderQuickCount('Questions are coming', renderStreamItem);
+  };
+}
+function beginKeep(){
+  R.queue = [null]; R.idx = 0; renderSegs();
+  $('reel-body').innerHTML = '<div class="face">' +
+    '<span class="kind-chip">Keep it going</span>' +
+    '<p class="quick-text small">A coworker says something. You answer fast.</p>' +
+    '<p class="quick-sub">5 rounds, 5 seconds each. Echo a word they said, or ask a follow-up. Tap Replied before the timer hits zero, or that round does not count.</p></div>' +
+    '<button class="quick-go" id="go-btn">Start ' + quickLabel() + '</button>';
+  $('go-btn').onclick = () => {
+    R.stream = {
+      items: shuffle(CONFIG.keepLines).slice(0, CONFIG.timers.keepRounds),
+      seconds: CONFIG.timers.keepEach,
+      i: 0, answered: 0, t0: 0, verb: 'Replied', doneNoun: 'Replied', countOnTimeout: false,
+      face: function(item, i, n, answered){
+        return '<div class="face" style="justify-content:flex-start"><span class="kind-chip">Keep it going</span>' +
+          '<p class="who">Round ' + (i + 1) + ' of ' + n + ' · ' + answered + ' replied</p>' +
+          '<p class="quick-sub" style="margin-top:8px">A coworker just said</p>' +
+          '<p class="quick-text">"' + esc(item) + '"</p>' +
+          '<p class="quick-hint">Echo it, or ask a follow-up. You have 5 seconds.</p>';
+      }
+    };
+    renderQuickCount('Get ready to reply', renderStreamItem);
+  };
+}
+function renderStreamItem(){
+  stopTimer();
+  const token = R.token;
+  const s = R.stream;
+  if(s.i >= s.items.length){ finishStream(); return; }
+  if(!s.t0) s.t0 = Date.now();
+  const total = s.seconds;
+  const start = Date.now();
+  const end = start + total * 1000;
+  let left = total;
+  const C = 2 * Math.PI * 80;
+  $('reel-body').innerHTML = s.face(s.items[s.i], s.i, s.items.length, s.answered) +
+    ringBlock(left, total) +
+    '</div><button class="quick-go" id="ans-btn">' + esc(s.verb) + '</button>' +
+    '<button class="quick-skip" id="pass-btn">Pass</button>';
+  beep(760, .08);
+  const advance = (count) => {
+    if(token !== R.token) return;
+    stopTimer();
+    if(count) s.answered++;
+    s.i++;
+    renderStreamItem();
+  };
+  $('ans-btn').onclick = () => advance(true);
+  $('pass-btn').onclick = () => advance(false);
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    const l = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+    if(l !== left){
+      left = l;
+      const num = $('ring-n'), ring = $('ring');
+      if(num) num.textContent = String(l);
+      if(ring) ring.setAttribute('stroke-dashoffset', String(C * (1 - l / total)));
+    }
+    if(Date.now() >= end) advance(!!s.countOnTimeout);
+  }, 200);
+}
+function finishStream(){
+  const s = R.stream;
+  R.secs = s.t0 ? Math.max(0, Math.round((Date.now() - s.t0) / 1000)) : 0;
+  renderRate(s.doneNoun + ' ' + s.answered + ' of ' + s.items.length);
+}
+function beginWordStory(){
+  const words = shuffle(CONFIG.storyWords);
+  R.words = [words[0], words[1]];
+  R.wordShown = false;
+  R.queue = [null]; R.idx = 0; renderSegs();
+  $('reel-body').innerHTML = '<div class="face">' +
+    '<span class="kind-chip">Random word story</span>' +
+    '<p class="quick-text small">A random word. Talk for 30 seconds. No prep.</p>' +
+    '<p class="quick-sub">You will not see the word until the clock starts. At 15 seconds a second word drops in. Work it into what you are saying.</p></div>' +
+    '<button class="quick-go" id="go-btn">Start ' + quickLabel() + '</button>';
+  $('go-btn').onclick = () => renderQuickCount('Your word is coming. No prep.', renderWordTalk);
+}
+function renderWordTalk(){
+  stopTimer();
+  const token = R.token;
+  const total = CONFIG.timers['Random word story'];
+  const start = Date.now();
+  const end = start + total * 1000;
+  let left = total;
+  const C = 2 * Math.PI * 80;
+  R.wordShown = false;
+  $('reel-body').innerHTML = '<div class="face" style="justify-content:flex-start">' +
+    '<span class="kind-chip">Talk now</span>' +
+    '<p class="who">Your word</p>' +
+    '<p class="quick-text">' + esc(R.words[0]) + '</p>' +
+    '<div id="drop-slot"></div>' +
+    ringBlock(left, total) +
+    '<div class="remind" id="word-remind"><b>No script.</b> A memory, an opinion, or a tiny story. Keep going.</div></div>' +
+    '<button class="quick-go" id="talk-done">I\'m done</button>';
+  beep(760, .1);
+  const finish = () => {
+    if(token !== R.token) return;
+    stopTimer();
+    R.secs = Math.min(total, Math.round((Date.now() - start) / 1000));
+    renderRate(R.wordShown ? (R.words[0] + ', then ' + R.words[1]) : R.words[0]);
+  };
+  $('talk-done').onclick = finish;
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    if(!R.wordShown && (Date.now() - start) >= 15000){
+      R.wordShown = true;
+      const slot = $('drop-slot');
+      if(slot) slot.innerHTML = '<div class="drop-chip"><b>Work this in</b><span>' + esc(R.words[1]) + '</span></div>';
+      const rem = $('word-remind');
+      if(rem) rem.innerHTML = '<b>Work in "' + esc(R.words[1]) + '".</b> Fold it into the next sentence.';
+      beep(740, .16);
+    }
+    const l = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+    if(l !== left){
+      left = l;
+      const num = $('ring-n'), ring = $('ring');
+      if(num) num.textContent = String(l);
+      if(ring) ring.setAttribute('stroke-dashoffset', String(C * (1 - l / total)));
+    }
+    if(Date.now() >= end){ beep(440, .3); finish(); }
+  }, 200);
 }
 
 /* ---------- Three beats ---------- */
@@ -1272,7 +1781,7 @@ function coachSummary(){
     const ss = skips.filter(s => s.kind === k); if(!ss.length) return;
     L.push('- ' + KINDS[k].label + ' (' + ss.length + '): ' + ss.slice(-8).map(s => '"' + s.prompt + '"').join(', '));
   });
-  const unused = ['freeze','explain','taboo','beats','friend','real'].filter(k => !recent.some(r => r.kind === k));
+  const unused = Object.keys(KINDS).filter(k => !recent.some(r => r.kind === k));
   if(unused.length) L.push('Drills not done at all in 14 days: ' + unused.map(k => KINDS[k].label).join(', '));
   L.push('');
   L.push('Reps, last 14 days:');
@@ -1331,6 +1840,10 @@ const LESSONS = [
     body:'<p>An example carries meaning even when the right word will not come.</p><div class="step-quote">"Like last week when the server went down."</div><ul><li>Keep one or two go-to examples from your own work ready.</li></ul>', drill:'explain' },
   { ico:'📝', c:'--teal', title:'Friend topic notes', desc:'Read 10 seconds before you call or text',
     body:'<p>When you do not talk to someone often, there is no recent thread to pick up. A tiny note fixes that.</p><div class="step-quote">"Hey, how did that interview go?"</div><ul><li>One or two things they mentioned last time.</li><li>Two or three things from your own week to share.</li><li>Update the note after you talk.</li></ul>', tab:'friends' },
+  { ico:'🌬️', c:'--rose', title:'Voice lock', desc:'Exhale before speaking, use a starter word, and say the first 3 or 4 words slowly.',
+    body:'<p>Exhale before speaking, use a starter word, and say the first 3 or 4 words slowly.</p>', drill:'Voice lock' },
+  { ico:'⚡', c:'--amber', title:'Thinking fast', desc:'Headline first. It is fine to say "good question, hmm" to buy 2 seconds.',
+    body:'<p>Headline first. It is fine to say "good question, hmm" to buy 2 seconds.</p>', drill:'Rapid fire' },
   { ico:'🎯', c:'--amber', title:'Prepare one point', desc:'Before a meeting or a coffee chat',
     body:'<p>Before a work conversation, decide on one point or question you want to bring up. Having just one ready makes it much easier to speak, and you usually find more to say once you have started.</p><ul><li>Write it in the "Before your next work chat" box on Today.</li><li>Easy openers: their weekend, a project they are on, lunch plans.</li></ul>', tab:'today' }
 ];
