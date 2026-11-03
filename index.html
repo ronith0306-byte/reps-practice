@@ -315,6 +315,7 @@
   .friend-list,.missions{grid-template-columns:repeat(2,minmax(0,1fr));}
   :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
   #settings{background:rgba(5,15,13,.78);align-items:flex-start;justify-content:center;padding:calc(32px + env(safe-area-inset-top,0px)) 16px 32px;}
+  #sheet{background:rgba(5,15,13,.82);align-items:flex-start;justify-content:center;padding:calc(18px + env(safe-area-inset-top,0px)) 12px calc(18px + env(safe-area-inset-bottom,0px));}
   .modal-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;max-width:520px;width:100%;padding:24px 24px 26px;--tag-color:var(--gold);--tag-bg:var(--gold-dark);}
   .modal-top{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
   .library-title{flex:1;font-family:var(--serif);font-weight:600;font-size:19px;margin:0;}
@@ -324,6 +325,42 @@
   .sync-box b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;}
   details.adv summary{cursor:pointer;font-size:13px;color:var(--gold);margin:2px 0 12px;}
   .small-note{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 14px;}
+  .goal-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 14px;}
+  .goal-pill{font-family:var(--mono);font-size:12px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:7px 12px;color:var(--text);}
+  .goal-pill strong{color:var(--amber);font-weight:700;}
+  .goal-track{flex:1;min-width:72px;height:8px;border-radius:8px;background:var(--surface-2);overflow:hidden;}
+  .goal-track i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--teal));}
+  .home-hint{background:var(--surface);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;margin:0 0 16px;}
+  .home-hint p{margin:0 0 8px;font-size:13.5px;line-height:1.45;}
+  .home-hint[hidden]{display:none;}
+  .eyebrow{padding-right:118px;}
+  .chip-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin:0 0 8px;-webkit-overflow-scrolling:touch;}
+  .chip{flex:0 0 auto;font-family:var(--mono);font-size:11px;letter-spacing:.04em;background:var(--surface);color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:7px 12px;cursor:pointer;}
+  .chip.active{background:var(--teal);color:var(--bg);border-color:var(--teal);font-weight:700;}
+  .phrase-card,.core-row,.win-item,.check-item{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 12px;margin:0 0 8px;}
+  .phrase-card p,.core-row p,.win-item p,.check-item p{margin:0;}
+  .phrase-card .phrase-text,.core-row .core-text{font-family:var(--serif);font-size:17px;line-height:1.35;}
+  .phrase-card .phrase-use,.core-row .core-use,.win-item small{display:block;color:var(--muted);font-size:12.5px;margin-top:4px;}
+  .used-btn{flex:0 0 auto;font-weight:700;font-size:12.5px;background:transparent;color:var(--teal);border:1px solid var(--teal);border-radius:20px;padding:8px 12px;cursor:pointer;}
+  .used-btn.on{background:var(--teal);color:var(--bg);}
+  .core-dots{display:flex;gap:4px;margin-top:8px;align-items:center;}
+  .core-dots i{width:8px;height:8px;border-radius:50%;background:var(--line);display:block;}
+  .core-dots i.on{background:var(--teal);}
+  .day-bar{height:8px;border-radius:8px;background:var(--surface-2);overflow:hidden;margin:8px 0 12px;}
+  .day-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--amber),var(--teal));}
+  .check-item{cursor:pointer;}
+  .check-item .box{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--line);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--bg);}
+  .check-item.on{border-color:var(--teal);}
+  .check-item.on .box{background:var(--teal);border-color:var(--teal);}
+  .score-big{font-family:var(--mono);font-size:42px;font-weight:700;margin:8px 0;}
+  .flash-face{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:2px 12px 12px 2px;min-height:160px;padding:18px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;}
+  .flash-face p{margin:0;}
+  .sheet-card{max-height:calc(100vh - 56px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow:auto;}
+  #reel[data-kind="1-minute rep"]{--kc:var(--amber);--kc-glow:rgba(255,122,89,.32);--kc-glow2:rgba(92,224,168,.12);}
+  #reel[data-kind="Core 5"]{--kc:var(--teal);--kc-glow:rgba(92,224,168,.30);--kc-glow2:rgba(255,194,103,.12);}
+  #reel[data-kind="30-day"]{--kc:var(--gold);--kc-glow:rgba(255,194,103,.28);--kc-glow2:rgba(92,224,168,.12);}
+  #reel[data-kind="Coach me"]{--kc:var(--blue);--kc-glow:rgba(111,195,224,.30);--kc-glow2:rgba(179,157,219,.12);}
+  #reel[data-kind="Flashcards"]{--kc:var(--violet);--kc-glow:rgba(179,157,219,.34);--kc-glow2:rgba(92,224,168,.12);}
   @media (max-width:680px){
     .wrap{padding:32px 18px 120px;}
     h1{font-size:40px;}
@@ -348,10 +385,20 @@
   <section class="tab-panel active" id="tab-today" data-tab="today">
     <p class="eyebrow">Daily unfreeze log</p>
     <h1>Reps</h1>
+    <div class="goal-bar" id="goal-bar" aria-label="Streak and daily goal"></div>
+    <button class="quick-hero" id="hero-minute">
+      <span class="quick-hero-ico">&#9201;</span>
+      <span class="quick-hero-main"><strong>Start a 1-minute rep</strong><small>A random prompt. Say it out loud. Then you are done.</small></span>
+      <span class="quick-hero-meta">60s</span>
+    </button>
+    <div class="home-hint" id="home-hint" hidden>
+      <p><b>Add this to your home screen</b> so the daily rep is one tap away. On iPhone, tap Share, then Add to Home Screen. On Android, open the browser menu, then Add to Home screen.</p>
+      <button class="ghost-btn" id="home-dismiss" style="--tag-color:var(--gold);--tag-bg:var(--gold-dark)">Got it</button>
+    </div>
     <p class="tagline">Short, out loud, a little every day. Blanking is a skill you can train away.</p>
 
     <div class="stats">
-      <div class="stat"><p class="stat-label">Today</p><p class="stat-value" id="stat-today">0</p><p class="stat-caption">reps done today</p></div>
+      <div class="stat"><p class="stat-label">Today</p><p class="stat-value" id="stat-today">0/3</p><p class="stat-caption">daily goal</p></div>
       <div class="stat"><p class="stat-label">Streak</p><p class="stat-value flame" id="stat-streak">0</p><p class="stat-caption">days in a row</p></div>
       <div class="stat"><p class="stat-label">Total reps</p><p class="stat-value" id="stat-total">0</p><p class="stat-caption" id="stat-best-cap">best streak 0</p></div>
       <div class="stat"><p class="stat-label">Smoothness</p><p class="stat-value" id="stat-avg">-</p><p class="stat-caption">average, last 7 days</p></div>
@@ -363,6 +410,19 @@
       <span class="quick-hero-main"><strong>Freeze drill</strong><small>Someone says something. 3 seconds. Then you talk.</small></span>
       <span class="quick-hero-meta">30s</span>
     </button>
+
+    <button class="learn-entry coach-hero" id="core5-open" style="border-color:var(--teal)">
+      <span class="coach-hero-ico">&#128172;</span>
+      <span class="coach-hero-main"><strong>Core 5 phrases</strong><small>Five sentences to say out loud. Seven days and they stick.</small></span>
+      <span class="coach-hero-meta" id="core5-meta">0/5</span>
+    </button>
+    <div class="potd-card" id="potd-card"></div>
+    <button class="coach-hero" id="challenge-open" style="border-color:var(--gold)">
+      <span class="coach-hero-ico">&#128197;</span>
+      <span class="coach-hero-main"><strong>30-day challenge</strong><small id="challenge-sub">Freeze, then shape, then real stakes, then groups.</small></span>
+      <span class="coach-hero-meta" id="challenge-meta">Start</span>
+    </button>
+    <div class="potd-card" id="win-card"></div>
 
     <button class="coach-hero" id="hero-coach">
       <span class="coach-hero-ico">&#128203;</span>
@@ -416,6 +476,20 @@
         <p class="task-sub">The real reps matter most. Rate how smooth it felt and note where you froze, if you did.</p>
         <button class="complete-btn" data-start="real">Log a real chat</button>
         <p class="mini-count" id="cnt-real"></p>
+      </div>
+      <div class="card" style="--tag-color:var(--amber);--tag-bg:var(--amber-dark);">
+        <span class="tag">Spin a challenge</span>
+        <p class="task-text">One random minute, out loud.</p>
+        <p class="task-sub">Point first, explain it simply, join a chat, or recover from a blank. Spin until you get one you want.</p>
+        <button class="complete-btn" id="spin-open">Spin a challenge</button>
+        <p class="mini-count" id="cnt-minute"></p>
+      </div>
+      <div class="card" style="--tag-color:var(--blue);--tag-bg:var(--blue-dark);">
+        <span class="tag">Coach me</span>
+        <p class="task-text">Say it, then see one fix.</p>
+        <p class="task-sub">A prompt, then you type the gist of what you said. The score stays on this phone. No internet needed.</p>
+        <button class="complete-btn" id="coach-open">Open coach me</button>
+        <p class="mini-count" id="cnt-coach"></p>
       </div>
       <p class="section-label">Voice lock</p>
       <div class="card wide" style="--tag-color:var(--rose);--tag-bg:var(--rose-dark);">
@@ -524,6 +598,17 @@
   <section class="tab-panel" id="tab-learn" data-tab="learn">
     <h2 class="panel-title">Learn</h2>
     <p class="panel-sub">The moves behind the drills, in plain words. Tap one to open it.</p>
+    <div id="spark-card"></div>
+    <div id="gita-card"></div>
+    <button class="coach-hero" id="flash-open">
+      <span class="coach-hero-ico">&#128220;</span>
+      <span class="coach-hero-main"><strong>This week's flashcards</strong><small>Six moves. Flip them, say the back out loud, then log one review.</small></span>
+      <span class="coach-hero-meta">Review</span>
+    </button>
+    <p class="section-label">Phrasebank</p>
+    <p class="panel-sub" id="phrase-meta" style="margin-top:-8px">Lines you can steal. Tap Used it after you say one in real life. This list is a checklist, not a scored rep.</p>
+    <div class="chip-row" id="phrase-chips"></div>
+    <div id="phrase-list"></div>
     <div id="learn-list"></div>
   </section>
 </div>
@@ -546,6 +631,12 @@
       <button class="nav-btn" id="reel-close" aria-label="Close drill">&#10005;</button>
     </div>
     <div id="reel-body" aria-live="polite"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="sheet" role="dialog" aria-modal="true">
+  <div class="modal-card sheet-card">
+    <div class="modal-top"><p class="library-title" id="sheet-title">Practice</p><button class="nav-btn" id="sheet-close" aria-label="Close">&#10005;</button></div>
+    <div id="sheet-body"></div>
   </div>
 </div>
 <div class="modal-overlay" id="settings" role="dialog" aria-modal="true">
@@ -585,7 +676,7 @@
    - timers: seconds per drill
    ===================================================================== */
 const CONFIG = {
-  timers: { countdown: 3, quick: 2, breath: 3, freeze: 30, explain: 60, taboo: 45, 'Voice lock': 20, 'Random word story': 30, 'Quick opinion': 20, rapidEach: 8, rapidRounds: 8, keepEach: 5, keepRounds: 5 },
+  timers: { countdown: 3, quick: 2, breath: 3, freeze: 30, explain: 60, taboo: 45, 'Voice lock': 20, 'Random word story': 30, 'Quick opinion': 20, '1-minute rep': 60, 'Core 5': 12, '30-day': 20, rapidEach: 8, rapidRounds: 8, keepEach: 5, keepRounds: 5 },
   repsPerSession: 5,
   dailyGoal: 3,
 
@@ -978,6 +1069,12 @@ function loadState(){
   S.outbox = arr(load('outbox', [])).slice(-300);
   const si = cleanObj(load('syncInfo', null), { state:'off', msg:'', at:0 });
   S.syncInfo = { state:str(si.state,20) || 'off', msg:str(si.msg,300), at:Number(si.at) || 0 };
+  S.core5 = cleanObj(load('core5', null), {});
+  S.phrases = cleanObj(load('phrases', null), {});
+  const ch = cleanObj(load('challenge', null), { start:'', checks:{} });
+  S.challenge = { start: DAY_RE.test(ch.start) ? ch.start : '', checks: (ch.checks && typeof ch.checks === 'object' && !Array.isArray(ch.checks)) ? ch.checks : {} };
+  S.wins = arr(load('wins', [])).map(w => ({ id:str(w.id || uid(),40), t:Number(w.t) || Date.now(), day:DAY_RE.test(w.day) ? w.day : dayKey(), text:str(w.text,140) })).filter(w => w.text).slice(-80);
+  S.homeHint = load('homeHint', '') === 'off' ? 'off' : '';
 }
 
 const KINDS = {
@@ -991,7 +1088,12 @@ const KINDS = {
   'Rapid fire':        { label:'Rapid fire',        slug:'rapid',     color:'var(--amber)',  ico:'⚡' },
   'Random word story': { label:'Random word story', slug:'wordstory', color:'var(--violet)', ico:'🔤' },
   'Quick opinion':     { label:'Quick opinion',     slug:'opinion',   color:'var(--blue)',   ico:'💬' },
-  'Keep it going':     { label:'Keep it going',     slug:'keepgoing', color:'var(--gold)',   ico:'🔁' }
+  'Keep it going':     { label:'Keep it going',     slug:'keepgoing', color:'var(--gold)',   ico:'🔁' },
+  '1-minute rep':      { label:'1-minute rep',      slug:'minute',    color:'var(--amber)',  ico:'⏱️' },
+  'Core 5':            { label:'Core 5',            slug:'core5',     color:'var(--teal)',   ico:'💬' },
+  '30-day':            { label:'30-day',            slug:'thirty',    color:'var(--gold)',   ico:'📅' },
+  'Coach me':          { label:'Coach me',          slug:'coach',     color:'var(--blue)',   ico:'🎤' },
+  'Flashcards':        { label:'Flashcards',        slug:'flash',     color:'var(--violet)', ico:'🗂️' }
 };
 
 /* ---------- Helpers ---------- */
@@ -1055,8 +1157,17 @@ function avg(list){ const r = list.filter(x => x.rating); return r.length ? r.re
 function statsNow(){ return { streak:streak(), today:todayCount(), total:S.reps.length }; }
 
 function renderStats(){
-  $('stat-today').textContent = todayCount();
+  const goalN = CONFIG.dailyGoal;
+  const tcNow = todayCount();
   const st = streak();
+  $('stat-today').textContent = tcNow + '/' + goalN;
+  const gb = $('goal-bar');
+  if(gb){
+    const pct = Math.max(0, Math.min(100, Math.round(tcNow / goalN * 100)));
+    gb.innerHTML = '<span class="goal-pill"><strong>' + (st > 0 ? st + ' day streak' : 'Start your streak') + '</strong></span>' +
+      '<span class="goal-pill">' + tcNow + ' today · goal ' + goalN + '</span>' +
+      '<span class="goal-track" aria-hidden="true"><i style="width:' + pct + '%"></i></span>';
+  }
   $('stat-streak').innerHTML = st + (st > 0 ? ' <span class="flame-icon">🔥</span>' : '');
   $('stat-total').textContent = S.reps.length;
   $('stat-best-cap').textContent = 'best streak ' + bestStreak();
@@ -1070,7 +1181,7 @@ function renderStats(){
     const has = days.has(k); if(has) on++;
     html += '<div class="week-dot' + (has?' on':'') + (i===0?' today':'') + '" title="' + k + '"><i>' + lbl + '</i></div>';
   }
-  html += '</div><span class="week-count">' + on + '/7 days this week · goal ' + CONFIG.dailyGoal + ' reps a day</span>';
+  html += '</div><span class="week-count">' + on + ' of 7 days this week</span>';
   $('week-row').innerHTML = html;
   Object.keys(KINDS).forEach(k => {
     const el = $('cnt-' + (KINDS[k].slug || k)); if(!el) return;
@@ -1082,6 +1193,7 @@ function renderStats(){
 function logRep(kind, prompt, rating, note, secs){
   const rep = { id:uid(), t:Date.now(), day:dayKey(), kind, prompt:String(prompt || '').slice(0,300), rating:rating || null, note:(note||'').trim().slice(0,200), secs:(secs == null ? null : secs) };
   S.reps.push(rep); save('reps', S.reps);
+  try{ noteNewRep(rep); }catch(e){}
   renderAll();
   queueSync(rep);
   const n = todayCount();
@@ -1150,8 +1262,10 @@ function countdownLabel(){
   return parts.join(', ');
 }
 function startReel(kind){
+  if(kind === 'Core 5' && R.pendingCore == null && R.extra && R.extra.core != null) R.pendingCore = R.extra.core;
+  if(kind === '30-day' && R.pendingDay == null && R.extra && R.extra.challengeDay) R.pendingDay = R.extra.challengeDay;
   stopTimer();
-  R.kind = kind; R.queue = buildQueue(kind); R.idx = 0; R.secs = null;
+  R.kind = kind; R.queue = buildQueue(kind); R.idx = 0; R.secs = null; R.extra = null;
   $('reel').style.removeProperty('--kc');
   $('reel').dataset.kind = kind; $('reel').classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -1161,6 +1275,11 @@ function startReel(kind){
   else if(kind === 'Rapid fire') beginRapid();
   else if(kind === 'Random word story') beginWordStory();
   else if(kind === 'Keep it going') beginKeep();
+  else if(kind === '1-minute rep'){ const spin = !!R.minuteSpin; R.minuteSpin = false; beginMinute(spin); }
+  else if(kind === 'Core 5') beginCore();
+  else if(kind === '30-day') beginChallengeLine();
+  else if(kind === 'Coach me'){ closeReel(); openCoach(); }
+  else if(kind === 'Flashcards'){ closeReel(); openFlash(); }
   else renderReady();
 }
 function closeReel(){
@@ -1216,7 +1335,7 @@ function renderReady(){
   renderSegs();
   const item = R.queue[R.idx]; R.current = item;
   $('reel-body').innerHTML = '<div class="face">' + readyHTML(item) + '</div>' +
-    '<button class="quick-go" id="go-btn">Start ' + countdownLabel() + '</button>' +
+    '<button class="quick-go" id="go-btn">' + (R.kind === 'Quick opinion' ? 'Start' : 'Start ' + countdownLabel()) + '</button>' +
     '<button class="quick-skip" id="skip-btn">Skip this one</button>';
   $('help-btn').onclick = () => $('helpbox').classList.toggle('show');
   $('go-btn').onclick = renderCount;
@@ -1303,6 +1422,7 @@ function renderRate(prompt){
     '<input class="input" id="rep-note" maxlength="160" placeholder="Where did I freeze?">' +
     '</div><button class="quick-go" id="rate-save" disabled>Log rep</button>' +
     '<button class="quick-skip" id="rate-skip">' + (isReal ? 'Cancel' : 'Skip without logging') + '</button>';
+  if(R.pendingNote){ const noteEl = $('rep-note'); if(noteEl) noteEl.value = R.pendingNote; R.pendingNote = ''; }
   document.querySelectorAll('.rate-btn').forEach(b => b.onclick = () => {
     R.rating = +b.dataset.r;
     document.querySelectorAll('.rate-btn').forEach(x => { x.classList.toggle('sel', x === b); x.setAttribute('aria-pressed', String(x === b)); });
@@ -1328,13 +1448,17 @@ function nextOrDone(){
   if(['freeze','explain','taboo','Quick opinion'].indexOf(R.kind) !== -1 && R.idx < R.queue.length){ renderReady(); return; }
   renderSegs();
   const n = todayCount();
-  const again = ['freeze','explain','taboo','Quick opinion','Voice lock','Rapid fire','Random word story','Keep it going'].indexOf(R.kind) !== -1;
+  const again = ['freeze','explain','taboo','Quick opinion','Voice lock','Rapid fire','Random word story','Keep it going','1-minute rep','Core 5','30-day','Coach me','Flashcards'].indexOf(R.kind) !== -1;
   $('reel-body').innerHTML = '<div class="done-wrap"><span class="done-emoji">🎉</span><h3>Round done</h3>' +
     '<p>' + n + ' rep' + (n===1?'':'s') + ' today · streak ' + streak() + ' day' + (streak()===1?'':'s') + '</p>' +
     '<p>Every time you talk through the blank moment, the next one gets smaller.</p></div>' +
     (again ? '<button class="quick-go" id="again-btn">Another round</button>' : '') +
     '<button class="quick-ghost" id="close-btn">Back to the app</button>';
-  if($('again-btn')) $('again-btn').onclick = () => startReel(R.kind);
+  if($('again-btn')) $('again-btn').onclick = () => {
+    if(R.kind === 'Coach me'){ closeReel(); openCoach(); return; }
+    if(R.kind === 'Flashcards'){ closeReel(); openFlash(); return; }
+    startReel(R.kind);
+  };
   $('close-btn').onclick = closeReel;
 }
 
@@ -1467,7 +1591,7 @@ function beginRapid(){
     '<span class="kind-chip">Rapid fire</span>' +
     '<p class="quick-text small">Easy questions. Answer out loud right away.</p>' +
     '<p class="quick-sub">About a minute. Each question stays up for 8 seconds, then the next one starts. Tap Answered when the words are out, or let the timer roll. Tap Pass if you blank.</p></div>' +
-    '<button class="quick-go" id="go-btn">Start ' + quickLabel() + '</button>';
+    '<button class="quick-go" id="go-btn">Start</button>';
   $('go-btn').onclick = () => {
     R.stream = {
       items: shuffle(CONFIG.rapid).slice(0, CONFIG.timers.rapidRounds),
@@ -1489,7 +1613,7 @@ function beginKeep(){
     '<span class="kind-chip">Keep it going</span>' +
     '<p class="quick-text small">A coworker says something. You answer fast.</p>' +
     '<p class="quick-sub">5 rounds, 5 seconds each. Echo a word they said, or ask a follow-up. Tap Replied before the timer hits zero, or that round does not count.</p></div>' +
-    '<button class="quick-go" id="go-btn">Start ' + quickLabel() + '</button>';
+    '<button class="quick-go" id="go-btn">Start</button>';
   $('go-btn').onclick = () => {
     R.stream = {
       items: shuffle(CONFIG.keepLines).slice(0, CONFIG.timers.keepRounds),
@@ -1557,7 +1681,7 @@ function beginWordStory(){
     '<span class="kind-chip">Random word story</span>' +
     '<p class="quick-text small">A random word. Talk for 30 seconds. No prep.</p>' +
     '<p class="quick-sub">You will not see the word until the clock starts. At 15 seconds a second word drops in. Work it into what you are saying.</p></div>' +
-    '<button class="quick-go" id="go-btn">Start ' + quickLabel() + '</button>';
+    '<button class="quick-go" id="go-btn">Start</button>';
   $('go-btn').onclick = () => renderQuickCount('Your word is coming. No prep.', renderWordTalk);
 }
 function renderWordTalk(){
@@ -1868,7 +1992,562 @@ function showTab(name){
   save('tab', name);
 }
 
-function renderAll(){ renderStats(); renderLog(); renderPicks(); }
+
+/* ---------- Phrasebank, Core 5, 1-minute rep, 30-day, wins, coach, spark ---------- */
+const CORE5_PHRASES = [
+  { text:"Give me a second. I want to say this properly.", use:"When you freeze or go blank" },
+  { text:"Short answer first. Want the reason?", use:"When you are about to ramble. Put the real point in the first sentence." },
+  { text:"There are two things here.", use:"Give the answer a shape, then fill in one sentence each." },
+  { text:"Let me say that more simply.", use:"When a word will not come, or the sentence gets tangled" },
+  { text:"I was thinking about you. How is that going?", use:"When you have not talked to a friend in a while" }
+];
+const PHRASE_BANK = [
+  { name:"Openers", phrases:[
+    "What's new with you?", "How's the day treating you so far?", "Anything good happening today?",
+    "Good to see you. How have you been?", "You holding up okay today?", "Busy one, or a calm one?" ] },
+  { name:"Not work", phrases:[
+    "Did you do anything fun this weekend?", "Watching or listening to anything good?",
+    "What was the best thing you ate this week?", "Any plans after this?",
+    "What do you do to switch off?", "Found any good lunch spots around here?" ] },
+  { name:"Keep going", phrases:[
+    "Oh nice, how was it?", "What made it good?", "Wait, how did that happen?",
+    "That makes sense. What happened next?", "Have you run into that too?", "What's your take?" ] },
+  { name:"Buy a second", phrases:[
+    "Good question, let me think for a second.", "Hang on, let me put it simply.", "Let me get this right.",
+    "Hmm, good question.", "Okay, so, short answer..." ] },
+  { name:"Explain", phrases:[
+    "The short version is...", "What stands out to me is...", "The main reason is...",
+    "A good example is...", "Which means...", "It is like a ..., but ..." ] },
+  { name:"At work", phrases:[
+    "Here's where we are.", "My concern is this.", "Can we confirm that before we move on?",
+    "Let me check and get back to you.", "That's outside what I know, but here's what I do know.",
+    "There are two things here." ] },
+  { name:"Missing word", phrases:[
+    "The thing that does...", "I am blanking on the name. The idea is...",
+    "It is the one you use when...", "Picture the object. It lives near..." ] },
+  { name:"Disagree", phrases:[
+    "I'd add one thing.", "I see it a bit differently. Here's why.", "Fair point. Here's another angle." ] }
+];
+const MINUTE = [
+  { kind:"Point first", text:"What is one thing you would change about your workday?", hint:"Pick one point. Say it in the first sentence, then one reason." },
+  { kind:"Point first", text:"What is the best advice you have gotten?", hint:"Name the advice first, then why it stuck." },
+  { kind:"Point first", text:"Why do you do the work you do?", hint:"One sentence answer, then one concrete reason." },
+  { kind:"Point first", text:"What would you do with a completely free Saturday?", hint:"Say the plan first. Then one detail. Then stop." },
+  { kind:"Point first", text:"What is one skill you want next, and why?", hint:"Name the skill in the first sentence." },
+  { kind:"Point first", text:"What is your favorite meal, and why?", hint:"Name it first. One reason. Stop before you ramble." },
+  { kind:"Explain simply", text:"Explain what you do at work to a friend who has never seen it.", hint:"Start with what it is for. No jargon. Two or three sentences." },
+  { kind:"Explain simply", text:"Explain a tool you use every day, as if to a new teammate.", hint:"What it does, then one example from this week." },
+  { kind:"Explain simply", text:"Explain your plan for tomorrow in two sentences.", hint:"Headline first. Then the one thing that matters most." },
+  { kind:"Explain simply", text:"A word just disappeared. Describe the thing without its name.", hint:"Say what it does, who uses it, or where it is. Keep going." },
+  { kind:"Freeze", text:"Someone asks a question and your mind goes blank. Say a pause line, then answer: what makes a good teammate?", hint:"Try: Give me a second. I want to say this properly. Then one point." },
+  { kind:"Freeze", text:"A group turns to you. Use a starter word, then give one opinion.", hint:"So... then your point. Slow on the first few words." },
+  { kind:"Join in", text:"People are already talking when you sit down. Say one friendly line and a question.", hint:"A small comment, then hand it back." },
+  { kind:"Join in", text:"A friend you have not seen in a week says hey. Answer, then ask one thing.", hint:"One line about you, then a question about them." },
+  { kind:"Join in", text:"Someone asks how your weekend was. Two sentences, then a question back.", hint:"What happened, why it mattered, then ask them." },
+  { kind:"Two reasons", text:"Give two reasons to take a real lunch break.", hint:"Open with: There are two things here. One sentence each." },
+  { kind:"Two reasons", text:"Give two reasons a short meeting can beat a long message.", hint:"Headline, reason one, reason two. Then stop." },
+  { kind:"Status", text:"Give a 30 second update. Where you are, what is in the way, what is next.", hint:"Three short sentences, in that order." },
+  { kind:"Disagree", text:"A coworker wants to skip a step to save time. Disagree kindly and give one reason.", hint:"I see it a bit differently. Then the reason. No apology spiral." },
+  { kind:"Ask", text:"You are stuck. Ask for help: the problem, what you tried, what you need.", hint:"Problem first. Clear, not apologetic." },
+  { kind:"Point first", text:"What is one small win from this week?", hint:"Name it first. Then why it mattered to you." },
+  { kind:"Explain simply", text:"Explain a decision you made at work, headline first.", hint:"The decision, the reason, one example. Then stop." },
+  { kind:"Join in", text:"Someone in the hallway says they are slammed. Reply and keep it going.", hint:"Echo one word, or ask what is taking the time." },
+  { kind:"Freeze", text:"You know what you want to say and your mouth will not start. Breathe out, then say the first four words slowly.", hint:"Empty the breath. Use So... or Okay, the thing is..." }
+];
+const ART_LINES = [
+  "Give me a second. I want to say this properly.",
+  "The short version is this, and the reason is simple.",
+  "There are two things here, and the first one matters more.",
+  "Let me say that more simply, then I will stop.",
+  "I see it a bit differently, and here is why.",
+  "What stands out to me is one clear point.",
+  "A good example is last week, when it actually worked.",
+  "I am blanking on the name. The idea is this.",
+  "Hey, it has been a minute. How is that going?",
+  "Here is where we are, here is what is in the way, here is what is next."
+];
+const SPARKS = [
+  { cat:"Speaking", title:"Pause power", text:"A short pause before a hard answer tends to sound more sure, not less. Rushed answers read as reactive. One breath is enough." },
+  { cat:"Speaking", title:"First and last", text:"People remember the start and the end of what you say more than the middle. If one point matters, put it first or last." },
+  { cat:"Speaking", title:"Four chunks", text:"Working memory holds only a few chunks at once. Two or three clear points stick. A long stream of details does not." },
+  { cat:"Speaking", title:"Name the snag", text:"Saying the feeling out loud, even 'I am blanking for a second', usually lowers it. Then give the point." },
+  { cat:"Speaking", title:"Your name", text:"People notice their own name more than almost any other word. Using it once, kindly, makes a short chat feel meant for them." },
+  { cat:"Speaking", title:"Spotlight effect", text:"You think other people noticed the freeze. Most of them were thinking about themselves. The recovery matters more than the gap." },
+  { cat:"Friends", title:"Familiarity", text:"Seeing someone often, even in small hellos, makes them warmer toward you over time. You do not need a perfect conversation." },
+  { cat:"Friends", title:"A small favor", text:"Asking for a tiny, real favor can make someone like you more, because they explain the help by deciding they are on your side." },
+  { cat:"Friends", title:"Give it back", text:"A small genuine question pulls a reply. That reply makes the other person want to keep going. Hand the turn back on purpose." },
+  { cat:"Work", title:"Loss framing", text:"People respond faster to what could go wrong than to a vague upside. One clear risk, said calmly, often lands better than a long pitch." },
+  { cat:"Work", title:"Backchannels", text:"Little sounds like 'mm-hmm' and 'right' tell the other person you are with them. They cost nothing and they keep you in the chat." },
+  { cat:"Work", title:"One slip is human", text:"A small honest stumble can make a capable person easier to trust. You do not have to sound perfect to sound like someone people want on the team." },
+  { cat:"Practice", title:"The hour myth", text:"A huge pile of hours does not guarantee skill. Short reps where you notice one thing, and try again, change the next conversation faster." },
+  { cat:"Practice", title:"Curiosity gap", text:"If you open with one unanswered question, people stay with you. Leave one small thing open, then answer it." }
+];
+const GITA = [
+  { theme:"Do the rep anyway", text:"You can choose the action. You cannot control how it lands. Do the rep. Let the result be what it is." },
+  { theme:"A steady mind", text:"Heat and cold, a smooth chat and a frozen one, both pass. Meet them without making either one your whole day." },
+  { theme:"Befriend your mind", text:"A mind you have trained is on your side. A mind you only argue with will blank you at the worst moment. Practice is how you befriend it." },
+  { theme:"Action over waiting", text:"Speaking is better than waiting to feel ready. Even a short line is action. Silence that is only fear is not rest." },
+  { theme:"Your own pace", text:"It is better to practice your own awkward line than to copy someone else's smooth one. Stumble on the path that is actually yours." },
+  { theme:"Where the freeze starts", text:"Replaying the moment builds the want to get it perfect. That want, when it fails, becomes the blank. Start further back: one breath, then one sentence." },
+  { theme:"Evenness", text:"Treat a clumsy rep and a clean one the same way. Log it, and do another. That evenness is the practice." },
+  { theme:"Lift yourself", text:"No one else can do today's minute for you. You can. One honest rep is you being on your own side." }
+];
+const FLASH_DECK = [
+  { front:"Your mind goes blank.", back:"Say a pause line, then one point. Give me a second is enough." },
+  { front:"You know the words and they will not come out.", back:"Exhale. Use a starter word. Say the first 3 or 4 words slowly." },
+  { front:"You start rambling.", back:"Headline first. One reason. Then stop." },
+  { front:"A word disappears mid-sentence.", back:"Describe what it does or where it is, and keep going." },
+  { front:"A friend, and no recent thread.", back:"Name one thing they mentioned. Ask how that is going." },
+  { front:"Someone just said something and you have nothing.", back:"Echo one word they used, or ask a follow-up." }
+];
+const COACH_PROMPTS = [
+  { kind:"On the spot", text:"A coworker asks how your weekend was. Answer in two sentences and ask one question back.", hint:"One thing that happened, why it mattered, then a question." },
+  { kind:"On the spot", text:"You sit down where everyone is already talking. Say one friendly line to join in.", hint:"Short and warm. Hand the turn back." },
+  { kind:"On the spot", text:"Someone you just met asks what you do. Answer in two sentences, no jargon.", hint:"What it is for, then one example." },
+  { kind:"Explain", text:"Explain a problem you solved recently, headline first.", hint:"The result first, then how, in one sentence." },
+  { kind:"Status", text:"Give a 30 second update: where you are, what is in the way, what is next.", hint:"Three sentences, that order." },
+  { kind:"Ask", text:"You did not understand an instruction. Ask for it again without shrinking.", hint:"Say what you heard, then the one thing you need." },
+  { kind:"Disagree", text:"Someone suggests skipping a step to save time. Disagree politely and give one reason.", hint:"Acknowledge them in a few words, then your view." },
+  { kind:"Friends", text:"A friend asks what you think of a show everyone is talking about. Two sentences.", hint:"Your take first, then one reason." },
+  { kind:"Freeze", text:"A question lands and you blank. Say your pause line, then answer: what makes a good teammate?", hint:"Pause line, then one point." },
+  { kind:"Missing word", text:"Explain your morning without using the words coffee, email, or meeting.", hint:"Talk around the missing words. Do not stop to hunt." }
+];
+let phraseCat = 0;
+let coachItem = null;
+let flashIndex = 0;
+let flashFlipped = false;
+
+function hashStr(s){ let h = 0; for(let i=0;i<s.length;i++) h = (h * 33 + s.charCodeAt(i)) >>> 0; return h; }
+function dayIndex(key){ return dayNum(key || dayKey()); }
+function openSheet(title){
+  $('sheet-title').textContent = title;
+  $('sheet').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeSheet(){
+  const el = $('sheet'); if(!el) return;
+  el.classList.remove('show');
+  const reelOn = $('reel') && $('reel').classList.contains('show');
+  const setOn = $('settings') && $('settings').classList.contains('show');
+  if(!reelOn && !setOn) document.body.style.overflow = '';
+}
+function noteNewRep(rep){
+  if(rep.kind === 'Core 5' && R.extra && R.extra.core != null){
+    const d = rep.day;
+    const list = Array.isArray(S.core5[d]) ? S.core5[d].slice() : [];
+    if(list.indexOf(R.extra.core) < 0) list.push(R.extra.core);
+    S.core5[d] = list;
+    save('core5', S.core5);
+  }
+  if(rep.kind === '30-day' && R.extra && R.extra.challengeDay){
+    const key = String(R.extra.challengeDay);
+    const prev = (S.challenge.checks && S.challenge.checks[key]) || {};
+    if(!S.challenge.checks) S.challenge.checks = {};
+    S.challenge.checks[key] = Object.assign({}, prev, { line:true });
+    save('challenge', S.challenge);
+  }
+}
+function showHomeHint(){
+  const el = $('home-hint'); if(!el) return;
+  const mobile = window.matchMedia('(max-width: 680px)').matches;
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  el.hidden = !mobile || !!standalone || S.homeHint === 'off';
+}
+function coreSaid(i){ const list = S.core5[dayKey()]; return Array.isArray(list) && list.indexOf(i) >= 0; }
+function coreDays(i){ return Object.keys(S.core5).filter(d => Array.isArray(S.core5[d]) && S.core5[d].indexOf(i) >= 0).length; }
+function renderCoreMeta(){
+  const el = $('core5-meta'); if(!el) return;
+  let n = 0; CORE5_PHRASES.forEach((_,i)=>{ if(coreSaid(i)) n++; });
+  el.textContent = n + '/5';
+}
+function renderCoreBody(){
+  let html = '<p class="small-note">Say each one out loud. Seven different days and it is yours. Logging the rep marks today.</p>';
+  CORE5_PHRASES.forEach((p,i)=>{
+    const days = coreDays(i), said = coreSaid(i);
+    let dots = '';
+    for(let k=0;k<7;k++) dots += '<i class="' + (k < Math.min(days,7) ? 'on' : '') + '"></i>';
+    html += '<div class="core-row"><div style="flex:1;min-width:0"><p class="core-text">' + esc(p.text) + '</p><p class="core-use">' + esc(p.use) + '</p><div class="core-dots">' + dots + (days >= 7 ? '<span class="core-use">Mastered</span>' : '') + '</div></div>' +
+      '<button class="used-btn' + (said ? ' on' : '') + '" data-core="' + i + '">' + (said ? 'Said' : 'Say it') + '</button></div>';
+  });
+  $('sheet-body').innerHTML = html;
+  $('sheet-body').querySelectorAll('[data-core]').forEach(b => b.onclick = () => {
+    R.pendingCore = +b.dataset.core;
+    closeSheet();
+    startReel('Core 5');
+  });
+}
+function openCore(){ openSheet('Core 5 phrases'); renderCoreBody(); }
+
+function allPhraseIds(){
+  const ids = [];
+  PHRASE_BANK.forEach((cat,ci)=> cat.phrases.forEach((_,pi)=> ids.push(ci + '-' + pi)));
+  return ids;
+}
+function phraseText(id){
+  const parts = String(id).split('-');
+  const cat = PHRASE_BANK[+parts[0]];
+  return cat && cat.phrases[+parts[1]] ? cat.phrases[+parts[1]] : '';
+}
+function phraseUsed(id){ const list = S.phrases[dayKey()]; return Array.isArray(list) && list.indexOf(id) >= 0; }
+function phraseDays(id){ return Object.keys(S.phrases).filter(d => Array.isArray(S.phrases[d]) && S.phrases[d].indexOf(id) >= 0).length; }
+function togglePhrase(id){
+  const d = dayKey();
+  const list = Array.isArray(S.phrases[d]) ? S.phrases[d].slice() : [];
+  const idx = list.indexOf(id);
+  if(idx < 0) list.push(id); else list.splice(idx, 1);
+  S.phrases[d] = list;
+  save('phrases', S.phrases);
+  renderPhrases();
+  renderPotd();
+}
+function phraseOfDay(){
+  const ids = allPhraseIds();
+  return ids[hashStr(dayKey()) % ids.length];
+}
+function renderPotd(){
+  const card = $('potd-card'); if(!card) return;
+  const id = phraseOfDay();
+  const used = phraseUsed(id);
+  card.innerHTML = '<p class="potd-eyebrow">Phrase to steal today</p><p class="potd-text">"' + esc(phraseText(id)) + '"</p>' +
+    '<p class="potd-sub">Say it in a real chat if you get the chance. Checking it off does not add a scored rep.</p>' +
+    '<button class="ghost-btn" id="potd-used" style="--tag-color:var(--teal);--tag-bg:var(--teal-dark)">' + (used ? 'Used today' : 'Used it') + '</button>';
+  $('potd-used').onclick = () => togglePhrase(id);
+}
+function renderPhrases(){
+  const meta = $('phrase-meta');
+  const chips = $('phrase-chips');
+  const list = $('phrase-list');
+  if(!chips || !list) return;
+  const usedToday = (Array.isArray(S.phrases[dayKey()]) ? S.phrases[dayKey()] : []).length;
+  if(meta) meta.textContent = 'Used today: ' + usedToday + '. Pick a few and say them until they feel easy. This list is a checklist, not a scored rep.';
+  chips.innerHTML = PHRASE_BANK.map((cat,ci) => '<button class="chip' + (ci === phraseCat ? ' active' : '') + '" data-cat="' + ci + '">' + esc(cat.name) + '</button>').join('');
+  chips.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { phraseCat = +b.dataset.cat; renderPhrases(); });
+  const cat = PHRASE_BANK[phraseCat];
+  list.innerHTML = cat.phrases.map((txt,pi) => {
+    const id = phraseCat + '-' + pi;
+    const days = phraseDays(id);
+    return '<div class="phrase-card"><div style="flex:1;min-width:0"><p class="phrase-text">' + esc(txt) + '</p>' +
+      (days ? '<p class="phrase-use">Used on ' + days + (days === 1 ? ' day' : ' days') + '</p>' : '') +
+      '</div><button class="used-btn' + (phraseUsed(id) ? ' on' : '') + '" data-ph="' + id + '">' + (phraseUsed(id) ? 'Used' : 'Used it') + '</button></div>';
+  }).join('');
+  list.querySelectorAll('[data-ph]').forEach(b => b.onclick = () => togglePhrase(b.dataset.ph));
+}
+
+function renderLineTalk(total, text, hint){
+  stopTimer();
+  const token = R.token;
+  const start = Date.now();
+  const end = start + total * 1000;
+  let left = total;
+  const C = 2 * Math.PI * 80;
+  $('reel-body').innerHTML = '<div class="face" style="justify-content:flex-start"><span class="kind-chip">Say it out loud</span>' +
+    '<p class="quick-text small">' + esc(text) + '</p>' + ringBlock(left, total) +
+    '<div class="remind">' + esc(hint) + '</div></div><button class="quick-go" id="talk-done">I\'m done</button>';
+  const finish = () => {
+    if(token !== R.token) return;
+    stopTimer();
+    R.secs = Math.min(total, Math.round((Date.now() - start) / 1000));
+    renderRate(text);
+  };
+  $('talk-done').onclick = finish;
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    const l = Math.max(0, Math.ceil((end - Date.now()) / 1000));
+    if(l !== left){
+      left = l;
+      const num = $('ring-n'), ring = $('ring');
+      if(num) num.textContent = String(l);
+      if(ring) ring.setAttribute('stroke-dashoffset', String(C * (1 - l / total)));
+    }
+    if(Date.now() >= end){ beep(440, .25); finish(); }
+  }, 200);
+}
+function renderMinuteSpin(){
+  stopTimer();
+  const token = R.token;
+  let n = 0;
+  const tick = () => {
+    const p = MINUTE[n % MINUTE.length];
+    $('reel-body').innerHTML = '<div class="face" style="justify-content:center;text-align:center"><span class="kind-chip">Spinning</span><p class="quick-text small">' + esc(p.text) + '</p></div>';
+  };
+  tick();
+  R.timer = setInterval(() => {
+    if(token !== R.token) return;
+    n++;
+    if(n >= 12){
+      stopTimer();
+      R.minute = MINUTE[hashStr(String(Date.now())) % MINUTE.length];
+      renderMinuteReady();
+    } else tick();
+  }, 90);
+}
+function renderMinuteReady(){
+  const m = R.minute;
+  $('reel-body').innerHTML = '<div class="face"><span class="kind-chip">' + esc(m.kind) + '</span><p class="quick-text small">' + esc(m.text) + '</p><p class="quick-sub">' + esc(m.hint) + '</p></div>' +
+    '<button class="quick-go" id="go-btn">Start the minute</button><button class="quick-skip" id="respin">Spin again</button>';
+  $('go-btn').onclick = () => renderQuickCount('Your minute starts now', renderMinuteTalk);
+  $('respin').onclick = renderMinuteSpin;
+}
+function renderMinuteTalk(){
+  const m = R.minute || pick(MINUTE);
+  R.minute = m;
+  renderLineTalk(CONFIG.timers['1-minute rep'], m.text, m.hint);
+}
+function beginMinute(spin){
+  R.queue = [null]; R.idx = 0;
+  R.minute = R.minute || pick(MINUTE);
+  if(spin) renderMinuteSpin();
+  else renderQuickCount('Your minute starts now', renderMinuteTalk);
+}
+function beginCore(){
+  const i = R.pendingCore == null ? 0 : R.pendingCore;
+  R.pendingCore = null;
+  R.extra = { core:i };
+  R.queue = [null]; R.idx = 0;
+  const p = CORE5_PHRASES[i] || CORE5_PHRASES[0];
+  renderQuickCount('Say it slowly', () => renderLineTalk(CONFIG.timers['Core 5'], p.text, p.use));
+}
+function challengeDay(){
+  if(!S.challenge.start) return 0;
+  return dayIndex(dayKey()) - dayIndex(S.challenge.start) + 1;
+}
+function phaseFor(day){
+  if(day <= 7) return { title:'Interrupt the freeze', focus:'Your mouth is waiting for a perfect sentence. This week, one breath comes first.', drill:'freeze', drillLabel:'Do a freeze drill', live:'Before you answer someone today, take one full breath.' };
+  if(day <= 14) return { title:'Give the thought a shape', focus:'Point, then one reason, then stop. Structure beats more words.', drill:'explain', drillLabel:'Do an explain drill', live:'In one real chat, say the point before the details.' };
+  if(day <= 21) return { title:'Use it when it matters', focus:'Same moves, on a conversation you actually care about.', drill:'real', drillLabel:'Log a real chat', live:'Use a pause line once in a work chat or with a friend.' };
+  return { title:'Speak to more than one person', focus:'One point, two sentences, then stop. Let the group have it.', drill:'Keep it going', drillLabel:'Do keep it going', live:'Make one early comment in a group, then stop.' };
+}
+function beginChallengeLine(){
+  const day = R.pendingDay || challengeDay() || 1;
+  R.pendingDay = null;
+  R.extra = { challengeDay: day };
+  R.queue = [null]; R.idx = 0;
+  const line = ART_LINES[(Math.max(day,1) - 1) % ART_LINES.length];
+  renderQuickCount('Slow and clear', () => renderLineTalk(CONFIG.timers['30-day'], line, 'Make the last word as clear as the first.'));
+}
+function renderChallengeMeta(){
+  const meta = $('challenge-meta'), sub = $('challenge-sub');
+  if(!meta) return;
+  const day = challengeDay();
+  if(day <= 0){ meta.textContent = 'Start'; if(sub) sub.textContent = 'Freeze, then shape, then real stakes, then groups.'; }
+  else if(day > 30){ meta.textContent = 'Done'; if(sub) sub.textContent = 'You finished the 30 days. Run it again any time.'; }
+  else { meta.textContent = 'Day ' + day; if(sub) sub.textContent = phaseFor(day).title; }
+}
+function toggleChallenge(day, field){
+  const key = String(day);
+  if(!S.challenge.checks) S.challenge.checks = {};
+  const prev = S.challenge.checks[key] || {};
+  const next = Object.assign({}, prev);
+  next[field] = !prev[field];
+  S.challenge.checks[key] = next;
+  save('challenge', S.challenge);
+  renderChallengeBody();
+}
+function renderChallengeBody(){
+  const day = challengeDay();
+  const body = $('sheet-body');
+  if(day <= 0){
+    body.innerHTML = '<p class="small-note">Thirty days beside the chats you already have. About one short rep a day.</p>' +
+      '<p class="task-sub"><b>Days 1 to 7.</b> Interrupt the freeze with one breath before you answer.</p>' +
+      '<p class="task-sub"><b>Days 8 to 14.</b> Give the thought a shape so you stop rambling.</p>' +
+      '<p class="task-sub"><b>Days 15 to 21.</b> Use it in a conversation that matters.</p>' +
+      '<p class="task-sub"><b>Days 22 to 30.</b> One point to a group, then stop.</p>' +
+      '<button class="complete-btn" id="ch-start">Start day 1</button>';
+    $('ch-start').onclick = () => { S.challenge.start = dayKey(); S.challenge.checks = {}; save('challenge', S.challenge); renderChallengeMeta(); renderChallengeBody(); };
+    return;
+  }
+  if(day > 30){
+    body.innerHTML = '<p class="task-text">30 days, done.</p><p class="small-note">The habits do not need the countdown. Run it again if you want a fresh start.</p><button class="ghost-btn" id="ch-restart">Run it again from day 1</button>';
+    let armed = false;
+    $('ch-restart').onclick = () => {
+      if(!armed){ armed = true; $('ch-restart').textContent = 'Tap again to restart. This clears the checkmarks.'; setTimeout(()=>{ armed = false; if($('ch-restart')) $('ch-restart').textContent = 'Run it again from day 1'; }, 4000); return; }
+      S.challenge.start = dayKey(); S.challenge.checks = {}; save('challenge', S.challenge); renderChallengeMeta(); renderChallengeBody();
+    };
+    return;
+  }
+  const phase = phaseFor(day);
+  const checks = (S.challenge.checks && S.challenge.checks[String(day)]) || {};
+  const line = ART_LINES[(day - 1) % ART_LINES.length];
+  const pct = Math.round(day / 30 * 100);
+  body.innerHTML = '<p class="potd-eyebrow">Day ' + day + ' of 30</p><div class="day-bar"><i style="width:' + pct + '%"></i></div>' +
+    '<p class="task-text">' + esc(phase.title) + '</p><p class="small-note">' + esc(phase.focus) + '</p>' +
+    '<p class="task-sub"><b>Today\'s line.</b> ' + esc(line) + '</p>' +
+    '<button class="complete-btn" id="ch-say">Say today\'s line</button>' +
+    '<div class="check-item' + (checks.drill ? ' on' : '') + '" id="ch-drill"><span class="box">' + (checks.drill ? '&#10003;' : '') + '</span><div><p><b>' + esc(phase.drillLabel) + '</b></p><p class="phrase-use">The drill logs as its own rep. This check only marks the arc.</p><button class="ghost-btn" id="ch-go" style="margin-top:8px">Open it</button></div></div>' +
+    '<div class="check-item' + (checks.live ? ' on' : '') + '" id="ch-live"><span class="box">' + (checks.live ? '&#10003;' : '') + '</span><div><p><b>Use it once for real</b></p><p class="phrase-use">' + esc(phase.live) + '</p></div></div>' +
+    (checks.line ? '<p class="mini-count">Today\'s line is logged.</p>' : '');
+  $('ch-say').onclick = () => { R.pendingDay = day; closeSheet(); startReel('30-day'); };
+  $('ch-drill').onclick = (e) => { if(e.target.id === 'ch-go') return; toggleChallenge(day, 'drill'); };
+  $('ch-go').onclick = (e) => { e.stopPropagation(); closeSheet(); startReel(phase.drill); };
+  $('ch-live').onclick = () => toggleChallenge(day, 'live');
+}
+function openChallenge(){ openSheet('30-day challenge'); renderChallengeBody(); }
+
+function renderWins(){
+  const card = $('win-card'); if(!card) return;
+  const latest = S.wins[S.wins.length - 1];
+  card.innerHTML = '<p class="potd-eyebrow">Win wall</p>' +
+    (latest ? '<p class="potd-text">' + esc(latest.text) + '</p><p class="potd-sub">' + esc(fmtDay(latest.day)) + '</p>' : '<p class="potd-sub">One thing that went okay in a real conversation. Small counts.</p>') +
+    '<input class="input" id="win-input" maxlength="140" placeholder="e.g. Asked a follow-up instead of going quiet">' +
+    '<div class="btn-row"><button class="ghost-btn" id="win-add" style="--tag-color:var(--gold);--tag-bg:var(--gold-dark)">Add a win</button><button class="ghost-btn" id="win-all">Wall (' + S.wins.length + ')</button></div>';
+  $('win-add').onclick = addWin;
+  $('win-input').addEventListener('keydown', e => { if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); addWin(); } });
+  $('win-all').onclick = openWins;
+}
+function addWin(){
+  const input = $('win-input'); if(!input) return;
+  const text = input.value.trim();
+  if(!text){ toast('Write one win first'); return; }
+  S.wins.push({ id:uid(), t:Date.now(), day:dayKey(), text:text.slice(0,140) });
+  if(S.wins.length > 80) S.wins = S.wins.slice(-80);
+  save('wins', S.wins);
+  input.value = '';
+  renderWins();
+  toast('Win saved');
+}
+function openWins(){
+  openSheet('Win wall');
+  const body = $('sheet-body');
+  body.innerHTML = S.wins.length ? S.wins.slice().reverse().map(w =>
+    '<div class="win-item"><div style="flex:1;min-width:0"><p>' + esc(w.text) + '</p><small>' + esc(fmtDay(w.day)) + '</small></div>' +
+    '<button class="x-btn" data-wdel="' + esc(w.id) + '" aria-label="Remove win">&#10005;</button></div>').join('') +
+    '<p class="small-note">Wins stay on this phone. They are not scored reps.</p>'
+    : '<p class="small-note">No wins yet. Add one from Today.</p>';
+  body.querySelectorAll('[data-wdel]').forEach(b => b.onclick = () => {
+    S.wins = S.wins.filter(w => w.id !== b.dataset.wdel);
+    save('wins', S.wins);
+    renderWins();
+    openWins();
+  });
+}
+
+function coachWords(text){ const t = String(text || '').trim(); return t ? t.split(/\s+/).length : 0; }
+function coachLocal(text){
+  const raw = String(text || '').trim();
+  const words = coachWords(raw);
+  const low = raw.toLowerCase();
+  const hedges = (low.match(/\b(maybe|i think|kind of|sort of|probably)\b/g) || []).length;
+  const first = (raw.split(/[.!?]/)[0] || '').trim();
+  const pointFirst = first.split(/\s+/).length >= 5 && !/^(so|well|um|uh|okay|yeah)\b/i.test(first);
+  let score = 8;
+  score -= Math.min(hedges, 4);
+  if(!pointFirst) score -= 2;
+  if(words > 55) score -= 2; else if(words > 40) score -= 1;
+  if(words < 8) score -= 2;
+  score = Math.max(1, Math.min(10, score));
+  let fix = 'Pick one idea and say only that.';
+  if(words < 8) fix = 'Add one reason or one example. One short line is not enough yet.';
+  else if(!pointFirst) fix = 'Put the answer in the first sentence. Then one reason.';
+  else if(hedges >= 2) fix = 'Cut maybe, I think, and kind of. Say it plainly, then stop.';
+  else if(words > 45) fix = 'Trim it to two sentences: one idea, one reason, then stop.';
+  else if(score >= 8) fix = 'Good shape. Say it once more, a little slower, and finish every word.';
+  const worked = pointFirst ? 'You opened with the point.' : (hedges === 0 ? 'No hedging. It sounded sure.' : 'You got a full answer out. That is the hard part.');
+  return { score:score, worked:worked, fix:fix, hedges:hedges, words:words };
+}
+function openCoach(){
+  coachItem = coachItem || pick(COACH_PROMPTS);
+  openSheet('Coach me');
+  renderCoach();
+}
+function renderCoach(){
+  const item = coachItem;
+  $('sheet-body').innerHTML = '<span class="tag" style="--tag-color:var(--blue);--tag-bg:var(--blue-dark)">' + esc(item.kind) + '</span>' +
+    '<p class="task-text">' + esc(item.text) + '</p><p class="small-note">' + esc(item.hint) + ' Say it out loud first. Then type the gist, even roughly.</p>' +
+    '<textarea class="input" id="coach-text" maxlength="600" placeholder="What you actually said"></textarea>' +
+    '<div class="btn-row"><button class="complete-btn" id="coach-score" style="width:auto;padding:11px 16px">Score it</button>' +
+    '<button class="ghost-btn" id="coach-next">Different prompt</button></div><div id="coach-result"></div>';
+  $('coach-next').onclick = () => { coachItem = pick(COACH_PROMPTS); renderCoach(); };
+  $('coach-score').onclick = () => {
+    const text = $('coach-text').value.trim();
+    if(coachWords(text) < 3){ toast('Type a few words of what you said'); return; }
+    const res = coachLocal(text);
+    R.pendingNote = res.fix.slice(0,160);
+    $('coach-result').innerHTML = '<p class="score-big">' + res.score + '<small style="font-size:16px;color:var(--muted)">/10</small></p>' +
+      '<p class="task-sub"><b>What worked.</b> ' + esc(res.worked) + '</p>' +
+      '<p class="task-sub"><b>One fix.</b> ' + esc(res.fix) + '</p>' +
+      '<button class="complete-btn" id="coach-log">Log this rep</button>';
+    $('coach-log').onclick = () => {
+      closeSheet();
+      stopTimer();
+      R.kind = 'Coach me'; R.queue = [null]; R.idx = 0; R.secs = null; R.extra = null;
+      $('reel').style.removeProperty('--kc');
+      $('reel').dataset.kind = 'Coach me';
+      $('reel').classList.add('show');
+      document.body.style.overflow = 'hidden';
+      $('reel-sound').innerHTML = S.sound ? '&#128266;' : '&#128263;';
+      renderRate(item.text);
+    };
+  };
+}
+
+function weekKey(){
+  const d = new Date();
+  const mondayOffset = (d.getDay() + 6) % 7;
+  const m = new Date(d.getFullYear(), d.getMonth(), d.getDate() - mondayOffset);
+  return dayKey(m);
+}
+function openFlash(){
+  flashIndex = 0; flashFlipped = false;
+  openSheet("This week's flashcards");
+  renderFlash();
+}
+function renderFlash(){
+  const order = FLASH_DECK.map((card,i) => ({ card:card, k:hashStr(weekKey() + ':' + i) })).sort((a,b) => a.k - b.k).map(x => x.card);
+  const card = order[flashIndex];
+  const body = $('sheet-body');
+  body.innerHTML = '<p class="potd-eyebrow">' + (flashIndex + 1) + ' of ' + order.length + ' · this week</p>' +
+    '<div class="flash-face" id="flash-face"><p class="potd-eyebrow">' + (flashFlipped ? 'Say this' : 'Situation') + '</p><p class="task-text">' + esc(flashFlipped ? card.back : card.front) + '</p><p class="small-note">Tap the card to flip.</p></div>' +
+    '<div class="btn-row" style="margin-top:12px"><button class="ghost-btn" id="flash-prev">Back</button><button class="ghost-btn" id="flash-next">Next</button></div>' +
+    (flashIndex === order.length - 1 ? '<button class="complete-btn" id="flash-log" style="margin-top:12px">I said them. Log this review</button>' : '');
+  $('flash-face').onclick = () => { flashFlipped = !flashFlipped; renderFlash(); };
+  $('flash-prev').onclick = () => { if(flashIndex > 0){ flashIndex--; flashFlipped = false; renderFlash(); } };
+  $('flash-next').onclick = () => { if(flashIndex < order.length - 1){ flashIndex++; flashFlipped = false; renderFlash(); } };
+  if($('flash-log')) $('flash-log').onclick = () => {
+    closeSheet();
+    stopTimer();
+    R.kind = 'Flashcards'; R.queue = [null]; R.idx = 0; R.secs = null; R.extra = null; R.pendingNote = '';
+    $('reel').style.removeProperty('--kc');
+    $('reel').dataset.kind = 'Flashcards';
+    $('reel').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    renderRate('Weekly flashcards');
+  };
+}
+function renderSpark(){
+  const el = $('spark-card'); if(!el) return;
+  const f = SPARKS[hashStr(dayKey()) % SPARKS.length];
+  el.innerHTML = '<div class="potd-card"><p class="potd-eyebrow">' + esc(f.cat) + ' · daily spark</p><p class="potd-text">' + esc(f.title) + '</p><p class="potd-sub">' + esc(f.text) + '</p></div>';
+}
+function renderGita(){
+  const el = $('gita-card'); if(!el) return;
+  const q = GITA[Math.floor(dayIndex(dayKey()) / 2) % GITA.length];
+  el.innerHTML = '<div class="potd-card"><p class="potd-eyebrow">A reflection · ' + esc(q.theme) + '</p><p class="potd-text">' + esc(q.text) + '</p><p class="potd-sub">Paraphrased from the Bhagavad Gita. A new one every other day. Read it once, then do the minute.</p></div>';
+}
+function renderExtras(){
+  renderCoreMeta();
+  renderChallengeMeta();
+  renderPotd();
+  renderWins();
+  renderPhrases();
+  renderSpark();
+  renderGita();
+  showHomeHint();
+}
+function initExtras(){
+  if($('hero-minute')) $('hero-minute').onclick = () => { R.minute = null; R.minuteSpin = false; startReel('1-minute rep'); };
+  if($('spin-open')) $('spin-open').onclick = () => { R.minute = null; R.minuteSpin = true; startReel('1-minute rep'); };
+  if($('core5-open')) $('core5-open').onclick = openCore;
+  if($('challenge-open')) $('challenge-open').onclick = openChallenge;
+  if($('coach-open')) $('coach-open').onclick = () => { coachItem = null; openCoach(); };
+  if($('flash-open')) $('flash-open').onclick = openFlash;
+  if($('sheet-close')) $('sheet-close').onclick = closeSheet;
+  if($('sheet')) $('sheet').addEventListener('click', e => { if(e.target.id === 'sheet') closeSheet(); });
+  if($('home-dismiss')) $('home-dismiss').onclick = () => { S.homeHint = 'off'; save('homeHint', 'off'); showHomeHint(); };
+  window.addEventListener('resize', showHomeHint);
+  renderExtras();
+}
+
+function renderAll(){ renderStats(); renderLog(); renderPicks(); try{ renderExtras(); }catch(e){} }
 </script>
 <script>
 /* ---------- Sync to coach (optional webhook with outbox) ---------- */
@@ -2030,10 +2709,11 @@ function init(){
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape'){
       if($('settings').classList.contains('show')) $('settings-close').click();
+      else if($('sheet') && $('sheet').classList.contains('show')) closeSheet();
       else if($('reel').classList.contains('show')) closeReel();
     }
   });
-  renderPause(); initPrep(); initBeats(); initFriends(); initLog(); initSettings();
+  renderPause(); initPrep(); initBeats(); initFriends(); initLog(); initSettings(); initExtras();
   renderFriends(); renderMine(); renderLearn(); renderAll(); renderSyncStatus();
   const t = load('tab', 'today'); if(t && $('tab-' + t)) showTab(t);
   try{ flushOutbox(); }catch(e){}
